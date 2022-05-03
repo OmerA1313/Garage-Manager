@@ -48,9 +48,12 @@
     <Compile Include="Garage.cs" />
     <Compile Include="MotorCycle.cs" />
     <Compile Include="Truck.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
     <Compile Include="VehicleFactory.cs" />
     <Compile Include="VehicleInGarage.cs" />
+    <Compile Include="VehicleNotFoundException.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <ItemGroup>

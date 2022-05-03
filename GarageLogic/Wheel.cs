@@ -8,5 +8,31 @@ namespace GarageLogic
 {
     internal class Wheel
     {
+        private readonly float r_MaxAirPressure; // TODO check for the correct way to name a readonly field
+        private float m_CurrentAirPressure;
+        private string m_ManufacturerName;
+
+        public Wheel(string i_WheelManufacturerName, float i_WheelCurrentAirPressure, int i_MaxAirPressure)
+        {
+            m_ManufacturerName = i_WheelManufacturerName;
+            m_CurrentAirPressure = i_WheelCurrentAirPressure;
+            r_MaxAirPressure = i_MaxAirPressure;
+        }
+
+        internal void Inflate(int i_AmountToInflate)
+        {
+            float newAirPressure = i_AmountToInflate + m_CurrentAirPressure;
+            if(newAirPressure > r_MaxAirPressure)
+            {
+                throw new ValueOutOfRangeException(0, r_MaxAirPressure);
+            }
+
+            m_CurrentAirPressure = newAirPressure;
+        }
+
+        public void InflateToMax()
+        {
+            m_CurrentAirPressure = r_MaxAirPressure;
+        }
     }
 }

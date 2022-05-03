@@ -8,5 +8,12 @@ namespace GarageLogic
 {
     internal class MotorCycle : Vehicle
     {
+        private eLicenseType m_LicenseType;
+        private int m_EngineCapacity;
+
+        internal enum eLicenseType
+        {
+            A, A1, B1, BB 
+        }
     }
 }
