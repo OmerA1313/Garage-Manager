@@ -41,6 +41,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="enums\FuelType.cs" />
     <Compile Include="vehicles\Car.cs" />
     <Compile Include="engines\ElectricEngine.cs" />
     <Compile Include="engines\Engine.cs" />

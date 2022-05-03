@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal class Truck : Vehicle
+    public enum eFuelType
     {
-        private bool m_IsRefrigerated;
-        private float m_LoadingCapacity;
+        Soler,
+        Octan95,
+        Octan96,
+        Octan98
     }
 }

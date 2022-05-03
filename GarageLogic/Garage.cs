@@ -8,24 +8,27 @@ namespace GarageLogic
 {
     public class Garage
     {
-        private List<VehicleInGarage> m_VehiclesInGarage;
+        //private List<VehicleInGarage> m_VehiclesInGarage;
+        private Dictionary<string, VehicleInGarage> m_LicensePlateToVehicle;
 
         public enum eVehicleStateInGarage
         {
             InRepair, Repaired, Paid, All
         }
 
-        internal void AddVehicle(VehicleInGarage i_VehicleToAdd)
-        {
-            m_VehiclesInGarage.Add(i_VehicleToAdd);
-        }
+        //internal void AddVehicle(VehicleInGarage i_VehicleToAdd)
+        //{
+        //    m_VehiclesInGarage.Add(i_VehicleToAdd);
+        //}
 
         private VehicleInGarage getVehicleByLicensePlate(string i_LicensePlate)
         {
-            VehicleInGarage vehicleToFind = m_VehiclesInGarage.Find(vehicle => vehicle.Vehicle.LicensePlate == i_LicensePlate);
-            if(vehicleToFind == null)
+            VehicleInGarage vehicleToFind;
+            bool vehicleExists = m_LicensePlateToVehicle.TryGetValue(i_LicensePlate, out vehicleToFind);
+            if(!vehicleExists)
             {
-                throw new VehicleNotFoundException(i_LicensePlate);
+                throw new ArgumentException(
+                    $"@The License plate you entered: {i_LicensePlate} doesn't match any vehicle in the garage");
             }
 
             return vehicleToFind;
@@ -37,7 +40,7 @@ namespace GarageLogic
             bool retrieveAll = i_VehicleStateInGarage == eVehicleStateInGarage.All;
             List<string> LicensePlates = new List<string>();
 
-            foreach(VehicleInGarage vehicleInGarage in m_VehiclesInGarage)
+            foreach(VehicleInGarage vehicleInGarage in m_LicensePlateToVehicle.Values)
             {
                 if(retrieveAll || vehicleInGarage.VehicleState == i_VehicleStateInGarage)
                 {
@@ -62,7 +65,7 @@ namespace GarageLogic
             vehicleToInflate.Vehicle.InflateWheelsToMax();
         }
 
-        public void EnergizeVehicle(string i_LicensePlate, FuelEngine.eFuelType i_FuelType, float i_EnergyAmount)
+        public void EnergizeVehicle(string i_LicensePlate, eFuelType i_FuelType, float i_EnergyAmount)
             // 5+6
         {
             VehicleInGarage vehicleToEnergize = getVehicleByLicensePlate(i_LicensePlate);

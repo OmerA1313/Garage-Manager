@@ -18,13 +18,13 @@ namespace GarageLogic
 
         public Engine Engine { get; set; }
 
-        internal virtual void InflateWheelsByAmount(int i_AmountToInflate)
-        {
-            foreach(Wheel wheel in m_Wheels)
-            {
-                wheel.Inflate(i_AmountToInflate);
-            }
-        }
+        //internal virtual void InflateWheelsByAmount(int i_AmountToInflate)
+        //{
+        //    foreach(Wheel wheel in m_Wheels)
+        //    {
+        //        wheel.Inflate(i_AmountToInflate);
+        //    }
+        //}
 
         internal virtual void InflateWheelsToMax()
         {
