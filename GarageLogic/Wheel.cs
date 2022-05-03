@@ -34,5 +34,13 @@ namespace GarageLogic
         {
             m_CurrentAirPressure = r_MaxAirPressure;
         }
+
+        public Dictionary<string, string> GetDetails()
+        {
+            Dictionary<string, string> details = new Dictionary<string, string>();
+            details.Add("Wheel manufacturer name",m_ManufacturerName);
+            details.Add("current air pressure", m_CurrentAirPressure.ToString());
+            return details;
+        }
     }
 }

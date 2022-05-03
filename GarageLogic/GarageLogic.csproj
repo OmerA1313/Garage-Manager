@@ -41,24 +41,25 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="ElectricEngine.cs" />
-    <Compile Include="Engine.cs" />
-    <Compile Include="FuelEngine.cs" />
+    <Compile Include="vehicles\Car.cs" />
+    <Compile Include="engines\ElectricEngine.cs" />
+    <Compile Include="engines\Engine.cs" />
+    <Compile Include="engines\FuelEngine.cs" />
     <Compile Include="Garage.cs" />
-    <Compile Include="MotorCycle.cs" />
-    <Compile Include="Truck.cs" />
+    <Compile Include="vehicles\MotorCycle.cs" />
+    <Compile Include="vehicles\Truck.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="ValueOutOfRangeException.cs" />
-    <Compile Include="Vehicle.cs" />
+    <Compile Include="customized exceptions\ValueOutOfRangeException.cs" />
+    <Compile Include="vehicles\Vehicle.cs" />
     <Compile Include="VehicleFactory.cs" />
     <Compile Include="VehicleInGarage.cs" />
-    <Compile Include="VehicleNotFoundException.cs" />
+    <Compile Include="customized exceptions\VehicleNotFoundException.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
