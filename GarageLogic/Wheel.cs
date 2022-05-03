@@ -19,16 +19,16 @@ namespace GarageLogic
             r_MaxAirPressure = i_MaxAirPressure;
         }
 
-        internal void Inflate(int i_AmountToInflate)
-        {
-            float newAirPressure = i_AmountToInflate + m_CurrentAirPressure;
-            if(newAirPressure > r_MaxAirPressure)
-            {
-                throw new ValueOutOfRangeException(0, r_MaxAirPressure);
-            }
+        //internal void Inflate(int i_AmountToInflate)
+        //{
+        //    float newAirPressure = i_AmountToInflate + m_CurrentAirPressure;
+        //    if(newAirPressure > r_MaxAirPressure)
+        //    {
+        //        throw new ValueOutOfRangeException(0, r_MaxAirPressure);
+        //    }
 
-            m_CurrentAirPressure = newAirPressure;
-        }
+        //    m_CurrentAirPressure = newAirPressure;
+        //}
 
         public void InflateToMax()
         {

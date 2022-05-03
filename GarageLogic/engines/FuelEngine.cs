@@ -10,13 +10,7 @@ namespace GarageLogic
     {
         private eFuelType m_FuelType;
 
-        public enum eFuelType
-        {
-            Soler,
-            Octan95,
-            Octan96,
-            Octan98
-        }
+        
 
         internal override void Energize(float i_EnergyAmount, eFuelType i_FuelType)
         {
