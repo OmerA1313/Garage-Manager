@@ -15,5 +15,12 @@ namespace GarageLogic
             details.Add("Maximum battery capacity", m_MaxEnergyAmount.ToString());
             return details;
         }
+
+        public override List<string> GetParameters()
+        {
+            List<string> parameters = new List<string>();
+            parameters.Add("Current time in battery");
+            return parameters;
+        }
     }
 }

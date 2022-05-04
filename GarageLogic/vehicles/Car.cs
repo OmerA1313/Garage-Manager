@@ -29,5 +29,19 @@ namespace GarageLogic
             details.Add("Number of doors", m_NumberOfDoors.ToString());
             return details;
         }
+
+        public override List<string> GetParameters()
+        {
+            List<string> parameters = base.GetParameters();
+            parameters.Add("Color");
+            parameters.Add("Number of doors");
+            return parameters;
+        }
+
+        public override void SetParameters(List<string> i_Parameters)
+        {
+            base.SetParameters(i_Parameters);
+            m_Color = eCarColor.TryParse(i_Parameters.RemoveAt(0));
+        }
     }
 }

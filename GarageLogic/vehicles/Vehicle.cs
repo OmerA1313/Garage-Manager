@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    internal abstract class Vehicle
+    public abstract class Vehicle
     {
         protected string m_ModelName;
         protected string m_LicensePlate;
-        protected Engine m_Engine;
-        protected float m_RemainingEnergy;
-        protected List<Wheel> m_Wheels;
+        protected internal Engine m_Engine;
+        protected internal List<Wheel> m_Wheels;
 
         public string LicensePlate { get; set; }
 
-        public Engine Engine { get; set; }
+        internal Engine Engine { get; set; }
 
         //internal virtual void InflateWheelsByAmount(int i_AmountToInflate)
         //{
@@ -39,10 +38,20 @@ namespace GarageLogic
             Dictionary<string, string> details = new Dictionary<string, string>();
             details.Add("License plate", m_LicensePlate);
             details.Add("Model name", m_ModelName);
-            details.Add("Remainig energy", m_RemainingEnergy.ToString());
+           // details.Add("Remainig energy", m_RemainingEnergy.ToString());
             Utils.ConcatDictionary(details, m_Wheels[0].GetDetails());
             Utils.ConcatDictionary(details, Engine.GetDetails());
             return details;
+        }
+
+        public virtual List<string> GetParameters()
+        {
+            List<string> parameters = new List<string>();
+            parameters.Add("License Plate");
+            parameters.Add("Model Name");
+            Utils.ConcatLists(parameters, Engine.GetParameters());
+            Utils.ConcatLists(parameters, m_Wheels[0].GetParameters());
+            return parameters;
         }
     }
 }
