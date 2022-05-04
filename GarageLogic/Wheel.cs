@@ -42,5 +42,13 @@ namespace GarageLogic
             details.Add("current air pressure", m_CurrentAirPressure.ToString());
             return details;
         }
+
+        public List<string> GetParameters()
+        {
+            List<string> parameters = new List<string>();
+            parameters.Add("Current wheel air pressure");
+            parameters.Add("Manufacturer name");
+            return parameters;
+        }
     }
 }

@@ -17,5 +17,13 @@ namespace GarageLogic
 
             return i_DestDict;
         }
+
+        public static void ConcatLists(List<string> i_DestList, List<string> i_SrcList)
+        {
+            foreach(string str in i_SrcList)
+            {
+                i_DestList.Add(str);
+            }
+        }
     }
 }

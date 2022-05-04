@@ -19,5 +19,13 @@ namespace GarageLogic
             details.Add("loading capacity", m_LoadingCapacity.ToString());
             return details;
         }
+
+        public override List<string> GetParameters()
+        {
+            List<string> parameters = base.GetParameters();
+            parameters.Add("Is refrigerated");
+            parameters.Add("Loading capacity");
+            return parameters;
+        }
     }
 }
