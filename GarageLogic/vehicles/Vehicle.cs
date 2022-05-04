@@ -53,5 +53,23 @@ namespace GarageLogic
             Utils.ConcatLists(parameters, m_Wheels[0].GetParameters());
             return parameters;
         }
+
+        public virtual void SetParameters(List<string> i_Parameters)
+        {
+            m_LicensePlate = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
+            m_ModelName = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
+            Engine.SetParameters(i_Parameters);
+            setWheelsParameters(i_Parameters);
+        }
+
+        private void setWheelsParameters(List<string> i_Parameters)
+        {
+            string currentWheelAirPressure = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
+            string manufacturerName = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
+            foreach(Wheel wheel in m_Wheels)
+            {
+                wheel.SetParameters(currentWheelAirPressure, manufacturerName);
+            }
+        }
     }
 }

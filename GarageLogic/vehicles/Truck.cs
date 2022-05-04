@@ -27,5 +27,12 @@ namespace GarageLogic
             parameters.Add("Loading capacity");
             return parameters;
         }
+
+        public override void SetParameters(List<string> i_Parameters)
+        {
+            base.SetParameters(i_Parameters);
+            m_IsRefrigerated = Convert.ToBoolean(int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters))); // TODO parse from string to boolean
+            m_LoadingCapacity = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+        }
     }
 }
