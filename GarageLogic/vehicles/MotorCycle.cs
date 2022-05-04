@@ -23,5 +23,13 @@ namespace GarageLogic
             details.Add("Engine capacity", m_EngineCapacity.ToString());
             return details;
         }
+
+        public override List<string> GetParameters()
+        {
+            List<string> parameters = base.GetParameters();
+            parameters.Add("Engine capacity");
+            parameters.Add("License type");
+            return parameters;
+        }
     }
 }
