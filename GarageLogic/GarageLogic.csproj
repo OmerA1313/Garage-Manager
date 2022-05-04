@@ -41,20 +41,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="enums\FuelType.cs" />
-    <Compile Include="vehicles\Car.cs" />
-    <Compile Include="engines\ElectricEngine.cs" />
-    <Compile Include="engines\Engine.cs" />
-    <Compile Include="engines\FuelEngine.cs" />
+    <Compile Include="Enums\FuelType.cs" />
+    <Compile Include="Vehicles\Car.cs" />
+    <Compile Include="Engines\ElectricEngine.cs" />
+    <Compile Include="Engines\Engine.cs" />
+    <Compile Include="Engines\FuelEngine.cs" />
     <Compile Include="Garage.cs" />
-    <Compile Include="vehicles\MotorCycle.cs" />
-    <Compile Include="vehicles\Truck.cs" />
+    <Compile Include="Vehicles\MotorCycle.cs" />
+    <Compile Include="Vehicles\Truck.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="customized exceptions\ValueOutOfRangeException.cs" />
-    <Compile Include="vehicles\Vehicle.cs" />
+    <Compile Include="Customized Exceptions\ValueOutOfRangeException.cs" />
+    <Compile Include="Vehicles\Vehicle.cs" />
     <Compile Include="VehicleFactory.cs" />
     <Compile Include="VehicleInGarage.cs" />
-    <Compile Include="customized exceptions\VehicleNotFoundException.cs" />
+    <Compile Include="Customized Exceptions\VehicleNotFoundException.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <ItemGroup>
