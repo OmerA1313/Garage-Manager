@@ -15,5 +15,11 @@ namespace GarageLogic.Garage_Departments
             Octan96,
             Octan98
         }
+
+        public void EnergizeVehicle(VehicleInGarage i_VehicleToEnergize, eFuelType i_FuelType, float i_EnergyAmount)
+        // 5+6
+        {
+            i_VehicleToEnergize.Vehicle.Engine.Energize(i_EnergyAmount, i_FuelType);
+        }
     }
 }

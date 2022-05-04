@@ -11,11 +11,11 @@ namespace GarageLogic
         private Vehicle m_Vehicle;
         private string m_OwnerName;
         private string m_OwnerPhoneNumber;
-        private Garage.eVehicleStateInGarage m_VehicleState = Garage.eVehicleStateInGarage.InRepair;
+        private Garage_Departments.Workshop.eVehicleStateInGarage m_VehicleState = Garage_Departments.Workshop.eVehicleStateInGarage.InRepair;
 
         public Vehicle Vehicle { get; set; }
 
-        public Garage.eVehicleStateInGarage VehicleState { get; set; }
+        public Garage_Departments.Workshop.eVehicleStateInGarage VehicleState { get; set; }
 
         public Dictionary<string, string> GetDetails()
         {

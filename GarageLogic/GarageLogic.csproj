@@ -41,12 +41,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\FuelType.cs" />
+    <Compile Include="Garage Departments\EnergizingStation.cs" />
+    <Compile Include="Garage Departments\Office.cs" />
+    <Compile Include="Garage Departments\Workshop.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="Engines\ElectricEngine.cs" />
     <Compile Include="Engines\Engine.cs" />
     <Compile Include="Engines\FuelEngine.cs" />
-    <Compile Include="Garage.cs" />
+    <Compile Include="Garage Departments\Garage.cs" />
     <Compile Include="Vehicles\MotorCycle.cs" />
     <Compile Include="Vehicles\Truck.cs" />
     <Compile Include="Utils.cs" />
