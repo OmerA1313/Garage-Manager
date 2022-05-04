@@ -24,5 +24,7 @@ namespace GarageLogic
         }
 
         public abstract Dictionary<string, string> GetDetails();
+
+        public abstract List<string> GetParameters();
     }
 }

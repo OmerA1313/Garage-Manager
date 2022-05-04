@@ -10,8 +10,6 @@ namespace GarageLogic
     {
         private eFuelType m_FuelType;
 
-        
-
         internal override void Energize(float i_EnergyAmount, eFuelType i_FuelType)
         {
             if(m_FuelType != i_FuelType)
@@ -33,6 +31,17 @@ namespace GarageLogic
             details.Add("Current fuel amount", m_CurrentEnergyAmount.ToString());
             details.Add("Maximum fuel capacity", m_MaxEnergyAmount.ToString());
             return details;
+        }
+
+        public override List<string> GetParameters()
+        {
+            List<string> parameters = new List<string>();
+            parameters.Add("Current Fuel amount");
+            return parameters;
+        }
+
+        public void SetParameters(List<String> i_Parameters)
+        {
         }
     }
 }
