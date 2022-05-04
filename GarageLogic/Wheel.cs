@@ -50,5 +50,11 @@ namespace GarageLogic
             parameters.Add("Manufacturer name");
             return parameters;
         }
+
+        public void SetParameters(string i_CurrentWheelAirPressure, string i_ManufacturerName)
+        {
+            m_CurrentAirPressure = float.Parse(i_CurrentWheelAirPressure);
+            m_ManufacturerName = i_ManufacturerName;
+        }
     }
 }

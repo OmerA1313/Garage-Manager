@@ -25,5 +25,12 @@ namespace GarageLogic
                 i_DestList.Add(str);
             }
         }
+
+        public static string GetAndRemoveFirstItemOfList(List<string> i_Parameters)
+        {
+            string toRemove = i_Parameters.First();
+            i_Parameters.RemoveAt(0);
+            return toRemove;
+        }
     }
 }

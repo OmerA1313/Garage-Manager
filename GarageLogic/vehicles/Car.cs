@@ -41,7 +41,14 @@ namespace GarageLogic
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            m_Color = eCarColor.TryParse(i_Parameters.RemoveAt(0));
+            bool colorParse = Enum.TryParse(Utils.GetAndRemoveFirstItemOfList(i_Parameters), false, out m_Color);
+            if(!colorParse)
+            {
+                throw new FormatException("Wrong color input");
+            }
+
+            m_NumberOfDoors = int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+
         }
     }
 }

@@ -12,8 +12,7 @@ namespace GarageLogic
     {
         private Garage_Departments.Office m_Secretary;
         private Garage_Departments.Workshop m_Mechanic;
-        private Garage_Departments.EnergizingStation m_Fueler;
-
+        private Garage_Departments.EnergizingStation m_EnergyFiller;
 
         public List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage = eVehicleStateInGarage.All)
         // 2
@@ -39,7 +38,7 @@ namespace GarageLogic
         // 5+6
         {
             VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
-            m_Fueler.EnergizeVehicle(vehicleToEnergize, i_FuelType, i_EnergyAmount);
+            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, i_FuelType, i_EnergyAmount);
         }
 
     }

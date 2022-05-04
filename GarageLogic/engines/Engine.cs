@@ -26,5 +26,10 @@ namespace GarageLogic
         public abstract Dictionary<string, string> GetDetails();
 
         public abstract List<string> GetParameters();
+
+        public virtual void SetParameters(List<string> i_Parameters)
+        {
+            m_CurrentEnergyAmount = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+        }
     }
 }

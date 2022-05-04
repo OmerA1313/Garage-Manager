@@ -39,9 +39,5 @@ namespace GarageLogic
             parameters.Add("Current Fuel amount");
             return parameters;
         }
-
-        public void SetParameters(List<String> i_Parameters)
-        {
-        }
     }
 }

@@ -31,5 +31,12 @@ namespace GarageLogic
             parameters.Add("License type");
             return parameters;
         }
+
+        public override void SetParameters(List<string> i_Parameters)
+        {
+            base.SetParameters(i_Parameters);
+            m_EngineCapacity = int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+            // TODO get and validate enum
+        }
     }
 }
