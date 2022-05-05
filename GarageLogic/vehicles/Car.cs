@@ -48,7 +48,6 @@ namespace GarageLogic
             }
 
             m_NumberOfDoors = int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
-
         }
     }
 }
