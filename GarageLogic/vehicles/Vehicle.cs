@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public abstract class Vehicle
+    internal abstract class Vehicle
     {
         protected string m_ModelName;
         protected string m_LicensePlate;

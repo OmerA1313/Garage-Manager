@@ -59,6 +59,12 @@ namespace GarageLogic
             return vehicleDetails;
         }
 
+        public void CreateAndEnterVehicleToGarage(List<string> i_userInputForParams, List<string> i_vehicleInGarageInfo)
+        {
+            Vehicle newVehicle =  VehicleFactory.CreateNewVehicleFromParameteres(i_userInputForParams);
+            m_Secretary.EnterNewVehicleToGarage(i_vehicleInGarageInfo, newVehicle);
+        }
+
         public List<string> GetVehicleStatusValuesAsList()
         {
             return Enum.GetValues(typeof(eVehicleStateInGarage)).Cast<string>().ToList();

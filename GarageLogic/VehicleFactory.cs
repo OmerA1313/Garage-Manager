@@ -10,10 +10,11 @@ namespace GarageLogic
     {
         enum eVehicleType
         {
-            Car =1,
+            Car = 1,
             MotoyCycle,
             Truck
         }
+        
 
         private static Vehicle m_VehicleToCreate;
 
@@ -27,37 +28,43 @@ namespace GarageLogic
 
         public static List<string> GetCretionParameters(string i_VehicleType, bool i_IsFuelEngine)
         {
-            List<string> paramters;
-            eVehicleType vehicleType = Enum.Parse(typeof(eVehicleType) ,i_VehicleType);// TODO i dont know
-            switch (vehicleType)
+            List<string> paramters = null;
+            eVehicleType vehicleType;
+            bool parsingSucces = Enum.TryParse<eVehicleType>(i_VehicleType, out vehicleType);
+            if (parsingSucces == true)
             {
-                case eVehicleType.Car:
-                    {
-                        m_VehicleToCreate = new Car(i_IsFuelEngine);
-                        break;
-                    }
+                switch (vehicleType)
+                {
+                    case eVehicleType.Car:
+                        {
+                            m_VehicleToCreate = new Car(i_IsFuelEngine);
+                            break;
+                        }
 
-                case eVehicleType.MotoyCycle:
-                    {
-                        m_VehicleToCreate = new MotorCycle(i_IsFuelEngine);
-                        break;
-                    }
+                    case eVehicleType.MotoyCycle:
+                        {
+                            m_VehicleToCreate = new MotorCycle(i_IsFuelEngine);
+                            break;
+                        }
 
-                case eVehicleType.Truck:
-                    {
-                        m_VehicleToCreate = new Truck();
-                        break;
-                    }
+                    case eVehicleType.Truck:
+                        {
+                            m_VehicleToCreate = new Truck();
+                            break;
+                        }
+                }
+
+                paramters = m_VehicleToCreate.GetParameters();
             }
 
-            paramters = m_VehicleToCreate.GetParameters();
             return paramters;
         }
 
-        public static Vehicle CreateNewVehicleFromParameteres(List<string> i_Parmamters)
+        internal static Vehicle CreateNewVehicleFromParameteres(List<string> i_Parmamters)
         {
-              m_VehicleToCreate.SetParameters(i_Parmamters);
-              return m_VehicleToCreate;
+            m_VehicleToCreate.SetParameters(i_Parmamters);
+            return m_VehicleToCreate;
         }
+   
     }
 }

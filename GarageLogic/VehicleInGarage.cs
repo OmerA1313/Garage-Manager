@@ -16,6 +16,8 @@ namespace GarageLogic
         public Vehicle Vehicle { get; set; }
 
         public Garage_Departments.Workshop.eVehicleStateInGarage VehicleState { get; set; }
+        public string OwnerName { get; internal set; }
+        public string OwnerPhoneNumber { get; internal set; }
 
         public Dictionary<string, string> GetDetails()
         {
