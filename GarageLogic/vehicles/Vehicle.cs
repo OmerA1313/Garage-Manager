@@ -13,17 +13,17 @@ namespace GarageLogic
         protected internal Engine m_Engine;
         protected internal List<Wheel> m_Wheels;
 
-        public string LicensePlate { get; set; }
+        internal Engine Engine
+        {
+            get {return m_Engine;}
+            set {m_Engine = value;}
+        }
 
-        internal Engine Engine { get; set; }
-
-        //internal virtual void InflateWheelsByAmount(int i_AmountToInflate)
-        //{
-        //    foreach(Wheel wheel in m_Wheels)
-        //    {
-        //        wheel.Inflate(i_AmountToInflate);
-        //    }
-        //}
+        internal string LicensePlate
+        {
+            get {return m_LicensePlate;}
+            set {m_LicensePlate = value;}
+        }
 
         internal virtual void InflateWheelsToMax()
         {
@@ -71,16 +71,24 @@ namespace GarageLogic
             m_LicensePlate = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
             m_ModelName = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
             Engine.SetParameters(i_Parameters);
-            setWheelsParameters(i_Parameters);
+            applyParametersToAllWheels(i_Parameters);
         }
 
-        private void setWheelsParameters(List<string> i_Parameters)
+        private void applyParametersToAllWheels(List<string> i_Parameters)
         {
             string currentWheelAirPressure = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
             string manufacturerName = Utils.GetAndRemoveFirstItemOfList(i_Parameters);
             foreach(Wheel wheel in m_Wheels)
             {
                 wheel.SetParameters(currentWheelAirPressure, manufacturerName);
+            }
+        }
+
+        protected void SetWheels(int i_WheelsMaxPressure)
+        {
+            for(int i = 0; i < m_Wheels.Capacity; i++)
+            {
+                m_Wheels.Add(new Wheel(i_WheelsMaxPressure));
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GarageLogic.Garage_Departments;
 
 namespace GarageLogic
 {
@@ -19,8 +20,18 @@ namespace GarageLogic
         internal MotorCycle(bool i_IsFuelEngine)
         {
             m_Wheels = new List<Wheel>(2);
-            //TODO setMaxAirpressure
             base.CreateEngine(i_IsFuelEngine);
+            base.SetWheels(31);
+            if(i_IsFuelEngine)
+            {
+                FuelEngine engine = m_Engine as FuelEngine;
+                engine.FuelType = EnergizingStation.eFuelType.Octan98;
+                engine.Capacity = 6.2F;
+            }
+            else
+            {
+                m_Engine.Capacity = 2.5F;
+            }
         }
 
         internal override Dictionary<string, string> GetDetails()
@@ -36,6 +47,7 @@ namespace GarageLogic
             List<string> parameters = base.GetParameters();
             parameters.Add("Engine capacity");
             parameters.Add("License type");
+            //TODO get all license types
             return parameters;
         }
 

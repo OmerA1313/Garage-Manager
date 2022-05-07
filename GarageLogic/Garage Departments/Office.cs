@@ -12,6 +12,11 @@ namespace GarageLogic.Garage_Departments
 
         private Dictionary<string, VehicleInGarage> m_LicensePlateToVehicle;
 
+        internal Office()
+        {
+            m_LicensePlateToVehicle = new Dictionary<string, VehicleInGarage>();
+        }
+
         internal VehicleInGarage GetVehicleByLicensePlate(string i_LicensePlate)
         {
             VehicleInGarage vehicleToFind;

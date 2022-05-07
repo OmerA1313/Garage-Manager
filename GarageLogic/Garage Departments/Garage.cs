@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GarageLogic.Garage_Departments;
 using static GarageLogic.Garage_Departments.EnergizingStation;
 using static GarageLogic.Garage_Departments.Workshop;
 
@@ -13,6 +14,13 @@ namespace GarageLogic
         private Garage_Departments.Office m_Secretary;
         private Garage_Departments.Workshop m_Mechanic;
         private Garage_Departments.EnergizingStation m_EnergyFiller;
+
+        public Garage()
+        {
+            m_EnergyFiller = new EnergizingStation();
+            m_Secretary = new Office();
+            m_Mechanic = new Workshop();
+        }
 
         public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage)
         // 2
@@ -67,7 +75,7 @@ namespace GarageLogic
 
         public List<string> GetVehicleStatusValuesAsList()
         {
-            return Enum.GetValues(typeof(eVehicleStateInGarage)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eVehicleStateInGarage)).ToList();
         }
 
         public List<string> GetFuelTypeValuesAsList()
