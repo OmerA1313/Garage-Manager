@@ -65,7 +65,13 @@ namespace UI
                 switch (menuOptionChoice)
                 {
                     case eMenuOptions.EnterNewVehicle:
-                        //TODO hardest thing ever
+                        string typeOfVehicle = m_communicator.GetTypeOfVehicleToEnterTheGarage();
+                        bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine();
+                        List<string> parametersToGetFromUser = VehicleFactory.GetNeededParameters(typeOfVehicle, isFuelEngine);
+                        List<string> userInputForParams = m_communicator.GetParametersFromUser(parametersToGetFromUser);
+                        Vehicle newCreatedVehicle = VehicleFactory.TryCreateVehicle(userInputForParams);
+                        List<string> vehicleInGarageInfo =  m_communicator.GetInfoForVehicleInGarage();
+                        m_Garage.EnterVehicleToGarage(vehicleInGarageInfo, newCreatedVehicle);
                         break;
 
                     case eMenuOptions.GetLicensePlates:
