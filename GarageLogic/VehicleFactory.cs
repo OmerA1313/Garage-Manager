@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace GarageLogic
 {
-    public class VehicleFactory
+    public static class VehicleFactory
     {
-        // HERE WE NEED TO DECIDE ABOUT DS TO HOLD THE TYPE OF VEHICLES WE HAVE SUPPORT IN OUR GARAGE
-        public List<string> GetAllPossibleVehicleTypeNames() // in order to notify the user what vehicle can he choose -> THATS UNNECESRRY, WE CAN USE SOME METHOD LIKE I HAVE CREATED IN THE GARAGE.
+        enum eVehicleType
+        {
+            Car =1,
+            MotoyCycle,
+            Truck
+        }
+
+        private static Vehicle m_VehicleToCreate;
+
+        public static List<string> GetAllPossibleVehicleTypeNames() // in order to notify the user what vehicle can he choose -> THATS UNNECESRRY, WE CAN USE SOME METHOD LIKE I HAVE CREATED IN THE GARAGE.
         {
             IEnumerable<Type> possibleVehicleTypes =
                 typeof(Vehicle).Assembly.GetTypes().Where(type => type.IsSubclassOf(typeof(Vehicle)));
@@ -17,5 +25,39 @@ namespace GarageLogic
             return possibleTypesNames;
         }
 
+        public static List<string> GetCretionParameters(string i_VehicleType, bool i_IsFuelEngine)
+        {
+            List<string> paramters;
+            eVehicleType vehicleType = Enum.Parse(typeof(eVehicleType) ,i_VehicleType);// TODO i dont know
+            switch (vehicleType)
+            {
+                case eVehicleType.Car:
+                    {
+                        m_VehicleToCreate = new Car(i_IsFuelEngine);
+                        break;
+                    }
+
+                case eVehicleType.MotoyCycle:
+                    {
+                        m_VehicleToCreate = new MotorCycle(i_IsFuelEngine);
+                        break;
+                    }
+
+                case eVehicleType.Truck:
+                    {
+                        m_VehicleToCreate = new Truck();
+                        break;
+                    }
+            }
+
+            paramters = m_VehicleToCreate.GetParameters();
+            return paramters;
+        }
+
+        public static Vehicle CreateNewVehicleFromParameteres(List<string> i_Parmamters)
+        {
+              m_VehicleToCreate.SetParameters(i_Parmamters);
+              return m_VehicleToCreate;
+        }
     }
 }

@@ -16,6 +16,13 @@ namespace GarageLogic
             A, A1, B1, BB 
         }
 
+        internal MotorCycle(bool i_IsFuelEngine)
+        {
+            m_Wheels = new List<Wheel>(2);
+            //TODO setMaxAirpressure
+            base.CreateEngine(i_IsFuelEngine);
+        }
+
         internal override Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = base.GetDetails();

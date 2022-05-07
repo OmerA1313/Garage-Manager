@@ -33,6 +33,18 @@ namespace GarageLogic
             }
         }
 
+        internal void CreateEngine(bool i_IsFuelEngine)
+        {
+            if (i_IsFuelEngine)
+            {
+                m_Engine = new FuelEngine();
+            }
+            else
+            {
+                m_Engine = new ElectricEngine();
+            }
+        }
+
         internal virtual Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = new Dictionary<string, string>();
