@@ -70,5 +70,32 @@ namespace UI
             Console.WriteLine("How many minutes would you like to recharge? Enter A number.");
             return Console.ReadLine();
         }
+
+        internal bool GetEnergyTypeOfEngine()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal string GetTypeOfVehicleToEnterTheGarage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetParametersFromUser(List<string> i_outputMessagesForParameters)
+        {
+            List<string> userInputs = new List<string>();
+            foreach (string outputMessage in i_outputMessagesForParameters)
+            {
+                Console.WriteLine(outputMessage);
+                string userInput = Console.ReadLine();
+                userInputs.Add(userInput);
+            }
+            return userInputs;
+        }
+
+        internal List<string> GetInfoForVehicleInGarage()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
