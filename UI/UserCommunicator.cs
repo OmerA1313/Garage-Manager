@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using static UI.GarageMenu;
 
 namespace UI
 {
@@ -8,7 +9,10 @@ namespace UI
     {
         public GarageMenu.eMenuOptions GetMenuOptionFromUser()
         {
-            throw new NotImplementedException(); //TODO user enum.TryParse;
+            string userChoice = Console.ReadLine();
+            eMenuOptions userParsedChoice;
+            Enum.TryParse(userChoice, out userParsedChoice);
+            return userParsedChoice;
         }
 
         public void PrintMenu(string i_MenuString)
@@ -73,12 +77,36 @@ namespace UI
 
         internal bool GetEnergyTypeOfEngine()
         {
-            throw new NotImplementedException();
+            bool isVehicleUsingGas = true; ;
+            bool invalidInput = true;
+            while (invalidInput)
+            {
+                invalidInput = false;
+                Console.WriteLine("Does your vehicle uses gas? y/N");
+                string userAnswer = Console.ReadLine();
+                if (userAnswer == "y")
+                {
+                    isVehicleUsingGas = true;
+                }
+                else if (userAnswer == "N")
+                {
+
+                    isVehicleUsingGas = false;
+                }
+                else
+                {
+                    Console.WriteLine("if the answer is yes please enter the small letter y, other enter the capital letter N");
+                    invalidInput = true;
+                }
+            }
+
+            return isVehicleUsingGas;
         }
 
         internal string GetTypeOfVehicleToEnterTheGarage()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("What the type of the vehicle?");
+            return Console.ReadLine();
         }
 
         public List<string> GetParametersFromUser(List<string> i_outputMessagesForParameters)
@@ -90,6 +118,7 @@ namespace UI
                 string userInput = Console.ReadLine();
                 userInputs.Add(userInput);
             }
+
             return userInputs;
         }
 
