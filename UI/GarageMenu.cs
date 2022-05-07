@@ -13,6 +13,8 @@ namespace UI
 
         internal GarageMenu()
         {
+            m_communicator = new UserCommunicator();
+            m_Garage = new Garage();
             generateMenuOptions();
         }
 
@@ -55,23 +57,22 @@ namespace UI
             m_communicator.PrintMenu(m_MenuString);
         }
 
-        internal void Ececute()
+        internal void Excecute()
         {
             printMenu();
-            eMenuOptions menuOptionChoice = m_communicator.GetMenuOptionFromUser();
-
-            while (menuOptionChoice != eMenuOptions.Exit)
+            eMenuOptions menuOptionChoice;
+            do
             {
+                menuOptionChoice = m_communicator.GetMenuOptionFromUser();
                 switch (menuOptionChoice)
                 {
                     case eMenuOptions.EnterNewVehicle:
                         string typeOfVehicle = m_communicator.GetTypeOfVehicleToEnterTheGarage();
                         bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine();
-                        List<string> parametersToGetFromUser = VehicleFactory.GetNeededParameters(typeOfVehicle, isFuelEngine);
+                        List<string> parametersToGetFromUser = VehicleFactory.GetCretionParameters(typeOfVehicle, isFuelEngine);
                         List<string> userInputForParams = m_communicator.GetParametersFromUser(parametersToGetFromUser);
-                        Vehicle newCreatedVehicle = VehicleFactory.TryCreateVehicle(userInputForParams);
-                        List<string> vehicleInGarageInfo =  m_communicator.GetInfoForVehicleInGarage();
-                        m_Garage.EnterVehicleToGarage(vehicleInGarageInfo, newCreatedVehicle);
+                        List<string> vehicleInGarageInfo = m_communicator.GetInfoForVehicleInGarage();
+                        m_Garage.CreateAndEnterVehicleToGarage(userInputForParams, vehicleInGarageInfo);
                         break;
 
                     case eMenuOptions.GetLicensePlates:
@@ -116,7 +117,7 @@ namespace UI
                     case eMenuOptions.GetDetails:
                         {
                             string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            Dictionary<string,string> vehicleDetails = m_Garage.GetVehicleDetails(licensePlate);
+                            Dictionary<string, string> vehicleDetails = m_Garage.GetVehicleDetails(licensePlate);
                             m_communicator.PrintVehicleDetails(vehicleDetails);
                             break;
                         }
@@ -126,8 +127,8 @@ namespace UI
                             m_communicator.PrintGoodbye();
                             break;
                         }
-                }
-            }
+                } 
+            } while (menuOptionChoice != eMenuOptions.Exit);
         }
     }
 }
