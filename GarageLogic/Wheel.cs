@@ -8,7 +8,7 @@ namespace GarageLogic
 {
     internal class Wheel
     {
-        private float m_MaxAirPressure; // TODO check for the correct way to name a readonly field
+        private float m_MaxAirPressure;
         private float m_CurrentAirPressure;
         private string m_ManufacturerName;
 
@@ -31,7 +31,7 @@ namespace GarageLogic
         public Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = new Dictionary<string, string>();
-            details.Add("Wheel manufacturer name",m_ManufacturerName);
+            details.Add("Wheel manufacturer name", m_ManufacturerName);
             details.Add("current air pressure", m_CurrentAirPressure.ToString());
             return details;
         }

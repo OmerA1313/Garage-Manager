@@ -26,7 +26,8 @@ namespace GarageLogic
         // 2
         {
             eVehicleStateInGarage desiredState;
-            Enum.TryParse<eVehicleStateInGarage>(i_VehicleStateInGarage,out desiredState);
+            Enum.TryParse<eVehicleStateInGarage>(i_VehicleStateInGarage, out desiredState);
+            //TODO check parsing and exception
             return m_Secretary.GetLicensePlatesInGarage(desiredState);
         }
 
@@ -57,6 +58,10 @@ namespace GarageLogic
                 VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
                 m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, energyAmount);
             }
+            else
+            {
+                throw new ArgumentException("Wrong fuel type input, correct fuel type is");
+            }
         }
 
         public Dictionary<string, string> GetVehicleDetails(string i_LicensePlate)
@@ -69,7 +74,7 @@ namespace GarageLogic
 
         public void CreateAndEnterVehicleToGarage(List<string> i_userInputForParams, List<string> i_vehicleInGarageInfo)
         {
-            Vehicle newVehicle =  VehicleFactory.CreateNewVehicleFromParameteres(i_userInputForParams);
+            Vehicle newVehicle = VehicleFactory.CreateNewVehicleFromParameters(i_userInputForParams);
             m_Secretary.EnterNewVehicleToGarage(i_vehicleInGarageInfo, newVehicle);
         }
 
