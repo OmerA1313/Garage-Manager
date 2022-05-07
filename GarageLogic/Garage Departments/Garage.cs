@@ -14,17 +14,21 @@ namespace GarageLogic
         private Garage_Departments.Workshop m_Mechanic;
         private Garage_Departments.EnergizingStation m_EnergyFiller;
 
-        public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage) // TODO parse string to Enum
+        public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage)
         // 2
         {
-            return m_Secretary.GetLicensePlatesInGarage(i_VehicleStateInGarage);
+            eVehicleStateInGarage desiredState;
+            Enum.TryParse<eVehicleStateInGarage>(i_VehicleStateInGarage,out desiredState);
+            return m_Secretary.GetLicensePlatesInGarage(desiredState);
         }
 
-        public void SetVehicleState(string i_LicensePlate, string i_NewState) //TODO enum parsing
+        public void SetVehicleState(string i_LicensePlate, string i_NewState)
         // 3
         {
+            eVehicleStateInGarage newDesiredState;
+            Enum.TryParse<eVehicleStateInGarage>(i_NewState, out newDesiredState);
             VehicleInGarage vehicleToRepair = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
-            m_Mechanic.SetVehicleState(vehicleToRepair, i_NewState);
+            m_Mechanic.SetVehicleState(vehicleToRepair, newDesiredState);
         }
 
         public void InflateVehicleToMax(string i_LicensePlateToInflate)
@@ -34,11 +38,13 @@ namespace GarageLogic
             m_Mechanic.InflateWheelsToMax(vehicleToInflate);
         }
 
-        public void EnergizeVehicle(string i_LicensePlate, float i_EnergyAmount, string i_FuelType = default) // TODO enum parsing
+        public void EnergizeVehicle(string i_LicensePlate, float i_EnergyAmount, string i_FuelType = default)
         // 5+6
         {
+            eFuelType desiredFuelType;
+            Enum.TryParse<eFuelType>(i_FuelType, out desiredFuelType);
             VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
-            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, i_FuelType, i_EnergyAmount);
+            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, i_EnergyAmount);
         }
 
         public Dictionary<string, string> GetVehicleDetails(string i_LicensePlate)
@@ -49,12 +55,9 @@ namespace GarageLogic
             return vehicleDetails;
         }
 
-        public List<string> GetAllVehicleStates() // i tried to retrieve an enumerated string/ list of strings for the user to choose from. got lost along the way
+        public List<string> GetVehicleStatusValuesAsList()
         {
-            string vehicleStatesAsString = string.Join(",", Enum.GetValues(typeof(eVehicleStateInGarage)));
-            string[] vehicleStatesArray = vehicleStatesAsString.Split(',').ToArray();
-            List<string> numberedVehicleStates = vehicleStatesArray.Select((i_State, i_Index) => $"{i_Index + 1}. {i_State}").ToList();
-            return numberedVehicleStates;
+            return Enum.GetValues(typeof(eVehicleStateInGarage)).Cast<string>().ToList();
         }
     }
 }
