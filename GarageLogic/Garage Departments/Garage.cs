@@ -38,13 +38,17 @@ namespace GarageLogic
             m_Mechanic.InflateWheelsToMax(vehicleToInflate);
         }
 
-        public void EnergizeVehicle(string i_LicensePlate, float i_EnergyAmount, string i_FuelType = default)
+        public void EnergizeVehicle(string i_LicensePlate, string i_EnergyAmount, string i_FuelType = default)
         // 5+6
         {
+            float energyAmount = float.Parse(i_EnergyAmount);
             eFuelType desiredFuelType;
-            Enum.TryParse<eFuelType>(i_FuelType, out desiredFuelType);
-            VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
-            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, i_EnergyAmount);
+            bool enumConversionSuccses = Enum.TryParse<eFuelType>(i_FuelType, out desiredFuelType);
+            if (enumConversionSuccses) // TODO: AM NOT SURE HOW TO MODULE THIS
+            {
+                VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
+                m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, energyAmount);
+            }
         }
 
         public Dictionary<string, string> GetVehicleDetails(string i_LicensePlate)
@@ -58,6 +62,11 @@ namespace GarageLogic
         public List<string> GetVehicleStatusValuesAsList()
         {
             return Enum.GetValues(typeof(eVehicleStateInGarage)).Cast<string>().ToList();
+        }
+
+        public List<string> GetFuelTypeValuesAsList()
+        {
+            return Enum.GetValues(typeof(eFuelType)).Cast<string>().ToList();
         }
     }
 }
