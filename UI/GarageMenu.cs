@@ -93,8 +93,8 @@ namespace UI
                     case eMenuOptions.Refuel:
                         {
                             string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            string fuelType = m_communicator.GetFuelTypeFromUser();
-                            float fuelAmount = m_communicator.GetEnergyAmountFromUser();
+                            string fuelType = m_communicator.GetFuelTypeFromUser(m_Garage.GetFuelTypeValuesAsList());
+                            string fuelAmount = m_communicator.GetFuelAmountFromUser();
                             m_Garage.EnergizeVehicle(licensePlate, fuelAmount, fuelType);
                             break;
                         }
@@ -102,7 +102,7 @@ namespace UI
                     case eMenuOptions.Recharge:
                         {
                             string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            float minutesToCharge = m_communicator.GetEnergyAmountFromUser();
+                            string minutesToCharge = m_communicator.GetTimeToRecharcgAmountFromUser();
                             m_Garage.EnergizeVehicle(licensePlate, minutesToCharge);
                             break;
                         }

@@ -38,5 +38,37 @@ namespace UI
                 index++;
             }
         }
+
+        internal string GetFuelTypeFromUser(List<string> i_AllAvailableFuelTypes)
+        {
+            printEnumeratedList(i_AllAvailableFuelTypes);
+            Console.WriteLine("Please enter fuel type");
+            return Console.ReadLine();
+        }
+
+        internal void PrintVehicleDetails(Dictionary<string, string> vehicleDetails)
+        {
+            Console.WriteLine("The details of chosen vehicle are:");
+            foreach (KeyValuePair<string,string> detailAndValue in vehicleDetails)
+            {
+                Console.WriteLine("{0} : {1}", detailAndValue.Key, detailAndValue.Value);
+            }
+        }
+
+        internal void PrintGoodbye()
+        {
+            Console.WriteLine("Hope To See You Again!\nByeBye!");
+        }
+
+        internal string GetFuelAmountFromUser()
+        {
+            Console.WriteLine("How many liters would you like to refule? Enter A number.");
+            return Console.ReadLine();
+        }
+        internal string GetTimeToRecharcgAmountFromUser()
+        {
+            Console.WriteLine("How many minutes would you like to recharge? Enter A number.");
+            return Console.ReadLine();
+        }
     }
 }
