@@ -42,5 +42,16 @@ namespace GarageLogic.Garage_Departments
             return LicensePlates;
         }
 
+        internal void EnterNewVehicleToGarage(List<string> i_vehicleInGarageInfo, Vehicle i_newCreatedVehicle)
+        {
+            VehicleInGarage vehicleInfo = new VehicleInGarage();
+            vehicleInfo.OwnerName = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
+            vehicleInfo.OwnerPhoneNumber = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
+            string vehicleStateRepresentation = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
+            eVehicleStateInGarage parsedVehicleState;
+            Enum.TryParse<eVehicleStateInGarage>(vehicleStateRepresentation, out parsedVehicleState);
+            vehicleInfo.VehicleState = parsedVehicleState;
+            vehicleInfo.Vehicle = i_newCreatedVehicle;
+        }
     }
 }
