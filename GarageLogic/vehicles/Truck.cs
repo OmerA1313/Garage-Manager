@@ -9,8 +9,14 @@ namespace GarageLogic
 {
     internal class Truck : Vehicle
     {
+        private readonly int m_NumberOfWheels = 16;
         private bool m_IsRefrigerated;
         private float m_LoadingCapacity;
+
+        internal Truck()
+        {
+            m_Wheels = new List<Wheel>(m_NumberOfWheels);
+        }
 
         internal override Dictionary<string, string> GetDetails()
         {

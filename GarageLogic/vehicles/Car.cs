@@ -16,10 +16,11 @@ namespace GarageLogic
             Red, White, Green, Blue
         }
 
-        internal Car(string i_LicensePlate)
+        internal Car(bool i_IsFuelEngine)
         {
-            m_LicensePlate = i_LicensePlate;
             m_Wheels = new List<Wheel>(4);
+            //TODO set Max air pressure
+            base.CreateEngine(i_IsFuelEngine);
         }
 
         internal override Dictionary<string, string> GetDetails()
