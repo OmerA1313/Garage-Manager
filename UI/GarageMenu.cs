@@ -70,7 +70,7 @@ namespace UI
 
                     case eMenuOptions.GetLicensePlates:
                         {
-                            string filterLicensePlates = m_communicator.GetVehicleStateFromUser();
+                            string filterLicensePlates = m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatusValuesAsList());
                             m_Garage.GetLicensePlatesInGarage(filterLicensePlates);
                             break;
                         }
@@ -78,7 +78,7 @@ namespace UI
                     case eMenuOptions.ChangeVehicleState:
                         {
                             string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            string vehicleState = m_communicator.GetVehicleStateFromUser(m_Garage.GetAllVehicleStates());
+                            string vehicleState = m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatusValuesAsList());
                             m_Garage.SetVehicleState(licensePlate, vehicleState);
                             break;
                         }
