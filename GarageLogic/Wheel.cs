@@ -39,7 +39,7 @@ namespace GarageLogic
         public List<string> GetParameters()
         {
             List<string> parameters = new List<string>();
-            parameters.Add($"Current wheel air pressure, maximum value is {m_MaxAirPressure}"); //TODO inform maximum amount
+            parameters.Add($"Current wheel air pressure, maximum value is {m_MaxAirPressure}");
             parameters.Add("Manufacturer name");
             return parameters;
         }

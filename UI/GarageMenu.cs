@@ -68,50 +68,40 @@ namespace UI
                 {
                    switch (menuOptionChoice)
                     {
-                    case eMenuOptions.EnterNewVehicle:
-                        string typeOfVehicle = m_communicator.GetTypeOfVehicleToEnterTheGarage(m_Garage.GetSupportedVehicleTypesAsList());
-                        bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine(VehicleFactory.GetEnergyTypeAsList(typeOfVehicle));
-                        List<string> parametersToGetFromUser = VehicleFactory.GetCretionParameters(typeOfVehicle, isFuelEngine);
-                        List<string> userInputForParams = m_communicator.GetParametersFromUser(parametersToGetFromUser);
-                        List<string> vehicleInGarageInfo = m_communicator.GetInfoForVehicleInGarage(m_Garage.GetVehicleStatesValuesAsList());
-                        m_Garage.CreateAndEnterVehicleToGarage(userInputForParams, vehicleInGarageInfo);
-                        break;
-               
-                    case eMenuOptions.GetLicensePlates:
-                        {
-                            string licnesePlate = m_communicator.GetLicensePlateFromUser();
-                            if (m_Garage.IsVehicleExists(licnesePlate))
+                        case eMenuOptions.EnterNewVehicle:
                             {
-                                m_communicator.PrintMessage($"vehicle {licnesePlate} already exists in garage");
-                                m_Garage.ResetStateOfExistingVehicle(licnesePlate);
-                            }
-                            else
-                            {
-                                string typeOfVehicle =
-                                    m_communicator.GetTypeOfVehicle(m_Garage.GetSupportedVehicleTypesAsList());
-                                bool isFuelEngine =
-                                    m_communicator.GetEnergyTypeOfEngine(m_Garage.GetEnergyTypesAsList());
-                                List<string> parametersToGetFromUser = VehicleFactory.GetCreationParameters(
-                                    typeOfVehicle,
-                                    licnesePlate,
-                                    isFuelEngine);
-                                List<string> userInputForParams =
-                                    m_communicator.GetParametersFromUser(parametersToGetFromUser);
-                                List<string> vehicleInGarageInfo =
-                                    m_communicator.GetInfoForVehicleInGarage(
-                                        m_Garage.GetVehicleStatesValuesAsList());
-                                m_Garage.CreateAndEnterVehicleToGarage(userInputForParams, vehicleInGarageInfo);
-                            }
+                                string licnesePlate = m_communicator.GetLicensePlateFromUser();
+                                if (m_Garage.IsVehicleExists(licnesePlate))
+                                {
+                                    m_communicator.PrintMessage($"vehicle {licnesePlate} already exists in garage");
+                                    m_Garage.ResetStateOfExistingVehicle(licnesePlate);
+                                }
+                                else
+                                {
+                                    string typeOfVehicle =
+                                        m_communicator.GetTypeOfVehicle(m_Garage.GetSupportedVehicleTypesAsList());
+                                    bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine(
+                                        VehicleFactory.GetEnergyTypeAsList(typeOfVehicle));
+                                    List<string> parametersToGetFromUser = VehicleFactory.GetCreationParameters(
+                                        typeOfVehicle,
+                                        licnesePlate,
+                                        isFuelEngine);
+                                    List<string> userInputForParams =
+                                        m_communicator.GetParametersFromUser(parametersToGetFromUser);
+                                    List<string> vehicleInGarageInfo =
+                                        m_communicator.GetInfoForVehicleInGarage(
+                                            m_Garage.GetVehicleStatesValuesAsList());
+                                    m_Garage.CreateAndEnterVehicleToGarage(userInputForParams, vehicleInGarageInfo);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
 
                         case eMenuOptions.GetLicensePlates:
                         {
-                            string filterLicensePlates =
-                                m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatesValuesAsList());
-                            List<string> licensePlates = m_Garage.GetLicensePlatesInGarage(filterLicensePlates);
-                            m_communicator.PrintEnumeratedList(licensePlates);
+                            string vehicleState;
+                            bool toFilter = m_communicator.GetFilterationChoiceFromUser(m_Garage.GetVehicleStatesValuesAsList(), out vehicleState);
+                            m_communicator.PrintEnumeratedList(m_Garage.GetLicensePlatesInGarage(vehicleState, toFilter));
                             break;
                         }
 
@@ -119,7 +109,7 @@ namespace UI
                         {
                             string licensePlate = m_communicator.GetLicensePlateFromUser();
                             string vehicleState =
-                                m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatesValuesAsList());
+                                m_communicator.GetVehicleState(m_Garage.GetVehicleStatesValuesAsList());
                             m_Garage.SetVehicleState(licensePlate, vehicleState);
                             break;
                         }
