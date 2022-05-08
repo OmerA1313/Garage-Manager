@@ -11,10 +11,10 @@ namespace GarageLogic
     {
         private eLicenseType m_LicenseType;
         private int m_EngineCapacity;
-        private readonly int m_MaxWheelAirPressure = 31;
-        private readonly int m_NumberOfWheels = 2;
-        private readonly float m_FuledEngingCapacity = 6.2F;
-        private readonly float m_ElectricEngingCapacity = 2.5F;
+        private static readonly int m_MaxWheelAirPressure = 31;
+        private static readonly int m_NumberOfWheels = 2;
+        private static readonly float m_FuledEngingCapacity = 6.2F;
+        private static readonly float m_ElectricEngingCapacity = 2.5F;
         internal enum eLicenseType
         {
             A = 1, A1, B1, BB 

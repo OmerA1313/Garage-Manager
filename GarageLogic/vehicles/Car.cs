@@ -11,10 +11,10 @@ namespace GarageLogic
     {
         private eCarColor m_Color;
         private int m_NumberOfDoors;
-        private readonly int m_MaxWheelAirPressure = 29;
-        private readonly int m_NumberOfWheels = 4;
-        private readonly float m_FuledEngingCapacity = 38;
-        private readonly float m_ElectricEngingCapacity = 3.3F;
+        private static readonly int m_MaxWheelAirPressure = 29;
+        private static readonly int m_NumberOfWheels = 4;
+        private static readonly float m_FuledEngingCapacity = 38;
+        private static readonly float m_ElectricEngingCapacity = 3.3F;
 
         internal enum eCarColor
         {
