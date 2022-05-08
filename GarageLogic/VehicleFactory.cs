@@ -23,7 +23,7 @@ namespace GarageLogic
             return Enum.GetNames(typeof(eVehicleType)).Cast<string>().ToList();
         }
 
-        public static List<string> GetCretionParameters(string i_VehicleType, bool i_IsFuelEngine)
+        public static List<string> GetCreationParameters(string i_VehicleType, string i_LicensePlate, bool i_IsFuelEngine)
         {
             List<string> paramters = null;
             eVehicleType vehicleType;
@@ -56,6 +56,7 @@ namespace GarageLogic
                         }
                 }
 
+                m_VehicleToCreate.LicensePlate = i_LicensePlate;
                 paramters = m_VehicleToCreate.GetParameters();
             }
 

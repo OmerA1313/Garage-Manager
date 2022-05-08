@@ -44,10 +44,14 @@ namespace GarageLogic
         public void SetVehicleState(string i_LicensePlate, string i_NewState)
         // 3
         {
-            eVehicleStateInGarage newDesiredState;
-            newDesiredState = parseVehicleState(i_NewState);
+            eVehicleStateInGarage newState = parseVehicleState(i_NewState);
+            SetVehicleState(i_LicensePlate,newState);
+        }
+
+        internal void SetVehicleState(string i_LicensePlate, eVehicleStateInGarage i_NewState)
+        {
             VehicleInGarage vehicleToRepair = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
-            m_Mechanic.SetVehicleState(vehicleToRepair, newDesiredState);
+            m_Mechanic.SetVehicleState(vehicleToRepair, i_NewState);
         }
 
         public void InflateVehicleToMax(string i_LicensePlateToInflate)
@@ -87,10 +91,10 @@ namespace GarageLogic
 
         public List<string> GetFuelTypeAsList()
         {
-            return Enum.GetValues(typeof(eFuelType)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eFuelType)).ToList();
         }
 
-        public List<string> GetEnergyTypeAsList()
+        public List<string> GetEnergyTypesAsList()
         {
             return Enum.GetNames(typeof(eEnergyType)).Cast<string>().ToList();
         }
@@ -100,5 +104,14 @@ namespace GarageLogic
             return VehicleFactory.GetAllSupportedVehicleTypes();
         }
 
+        public bool IsVehicleExists(string i_LicensePlate)
+        {
+            return m_Secretary.IsVehicleInGarage(i_LicensePlate);
+        }
+
+        public void ResetStateOfExistingVehicle(string i_LicnesePlate)
+        {
+            SetVehicleState(i_LicnesePlate, eVehicleStateInGarage.InRepair);
+        }
     }
 }

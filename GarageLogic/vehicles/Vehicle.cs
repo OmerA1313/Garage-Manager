@@ -59,7 +59,7 @@ namespace GarageLogic
         public virtual List<string> GetParameters()
         {
             List<string> parameters = new List<string>();
-            parameters.Add("License Plate");
+            //parameters.Add("License Plate");
             parameters.Add("Model Name");
             Utils.ConcatLists(parameters, Engine.GetParameters());
             Utils.ConcatLists(parameters, m_Wheels[0].GetParameters());
@@ -68,7 +68,7 @@ namespace GarageLogic
 
         public virtual void SetParameters(List<string> i_Parameters)
         {
-            m_LicensePlate = Utils.PopFirstItemOfList(i_Parameters);
+            //m_LicensePlate = Utils.PopFirstItemOfList(i_Parameters);
             m_ModelName = Utils.PopFirstItemOfList(i_Parameters);
             Engine.SetParameters(i_Parameters);
             applyParametersToAllWheels(i_Parameters);

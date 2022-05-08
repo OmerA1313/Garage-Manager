@@ -47,7 +47,7 @@ namespace GarageLogic
         public override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Color:\n" + createEnumeratedColorOptions(getVehicleColorOptionsAsList())); // maybe extract to the utils class
+            parameters.Add("Color:\n" + createEnumeratedColorOptions(getVehicleColorOptionsAsList()));
             parameters.Add("Number of doors (2,3,4 or 5)");
             return parameters;
         }

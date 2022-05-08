@@ -10,13 +10,13 @@ namespace GarageLogic.Garage_Departments
     {
         public enum eVehicleStateInGarage
         {
-            InRepair, Repaired, Paid, All
+            InRepair = 1, Repaired, Paid, All
         }
 
-        public void SetVehicleState(VehicleInGarage i_VehicleToRepair, string i_NewState)
+        internal void SetVehicleState(VehicleInGarage i_VehicleToRepair, eVehicleStateInGarage i_newState)
         // 3
         {
-            i_VehicleToRepair.VehicleState = parseVehicleState(i_NewState);
+            i_VehicleToRepair.VehicleState = i_newState;
         }
 
         internal void InflateWheelsToMax(VehicleInGarage i_VehicleToInflate)
