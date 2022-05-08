@@ -84,7 +84,7 @@ namespace GarageLogic
             }
         }
 
-        protected void SetWheels(int i_WheelsMaxPressure)
+        protected void CreateWheels(int i_WheelsMaxPressure)
         {
             for(int i = 0; i < m_Wheels.Capacity; i++)
             {
