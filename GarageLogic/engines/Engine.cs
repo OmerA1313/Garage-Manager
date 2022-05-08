@@ -15,15 +15,20 @@ namespace GarageLogic
         internal virtual void Energize(float i_EnergyAmount, eFuelType i_FuelType = default) // TODO combina - maybe use params?
         {
             float newEnergyAmount = i_EnergyAmount + m_CurrentEnergyAmount;
-            if(newEnergyAmount > m_MaxEnergyAmount)
-            {
-                throw new ValueOutOfRangeException(0, m_MaxEnergyAmount, "Energy amount out of range");
-            }
-
-            m_CurrentEnergyAmount = newEnergyAmount;
+            setEnergyAmount(newEnergyAmount);
         }
 
-        internal float Capacity
+        private void setEnergyAmount(float i_EnergyAmount)
+        {
+            if (i_EnergyAmount > m_MaxEnergyAmount)
+            {
+                throw new ValueOutOfRangeException(0, m_MaxEnergyAmount, $"Energy amount out of range, maximum is: {m_MaxEnergyAmount}");
+            }
+
+            m_CurrentEnergyAmount = i_EnergyAmount;
+        }
+
+        internal float MaxEnergyAmount
         {
             get {return m_MaxEnergyAmount;}
             set {m_MaxEnergyAmount = value;}
@@ -35,8 +40,8 @@ namespace GarageLogic
 
         public virtual void SetParameters(List<string> i_Parameters)
         {
-            //TODO extract fuel overload validation to seperate method and use here
-            m_CurrentEnergyAmount = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+            float energyAmount = float.Parse(Utils.PopFirstItemOfList(i_Parameters));
+            setEnergyAmount(energyAmount);
         }
     }
 }

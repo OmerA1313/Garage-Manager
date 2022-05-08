@@ -27,12 +27,12 @@ namespace GarageLogic
             {
                 FuelEngine engine = m_Engine as FuelEngine;
                 engine.FuelType = EnergizingStation.eFuelType.Octan95;
-                engine.Capacity = 38;
+                engine.MaxEnergyAmount = 38;
             }
             else
             {
                 ElectricEngine engine = m_Engine as ElectricEngine;
-                engine.Capacity = 3.3F;
+                engine.MaxEnergyAmount = 3.3F;
             }
         }
 
@@ -48,7 +48,7 @@ namespace GarageLogic
         {
             List<string> parameters = base.GetParameters();
             parameters.Add("Color:\n" + createEnumeratedColorOptions(getVehicleColorOptionsAsList())); // maybe extract to the utils class
-            parameters.Add("Number of doors");
+            parameters.Add("Number of doors (2,3,4 or 5)");
             return parameters;
         }
 
@@ -73,23 +73,37 @@ namespace GarageLogic
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            bool colorParse = Enum.TryParse(Utils.GetAndRemoveFirstItemOfList(i_Parameters), false, out m_Color);
+            m_Color = parseCarColor(Utils.PopFirstItemOfList(i_Parameters));
+            m_NumberOfDoors = parseNumberOfDoors(Utils.PopFirstItemOfList(i_Parameters));
+        }
+
+        private eCarColor parseCarColor(string i_CarColor)
+        {
+            eCarColor desiredColor;
+            bool colorParse = Enum.TryParse(i_CarColor, out desiredColor);
             if(!colorParse)
             {
                 throw new FormatException("Wrong color input");
             }
 
-            int numberOfDoors = int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
-            validateNumberOfDoors(numberOfDoors);
-            m_NumberOfDoors = numberOfDoors;
+            return desiredColor;
         }
 
-        private void validateNumberOfDoors(int i_NumberOfDoors)
+        private int parseNumberOfDoors(string i_NumberOfDoors)
         {
-            if(i_NumberOfDoors != 2 && i_NumberOfDoors != 3 && i_NumberOfDoors != 4 && i_NumberOfDoors != 5)
+            int numberOfDoors;
+            bool NumberOfDoorsParse = int.TryParse(i_NumberOfDoors, out numberOfDoors);
+            if(!NumberOfDoorsParse)
+            {
+                throw new FormatException("Number of doors not a valid integer");
+            }
+
+            if(numberOfDoors != 2 && numberOfDoors != 3 && numberOfDoors != 4 && numberOfDoors != 5)
             {
                 throw new ArgumentException("Wrong number of doors input, can only be 2,3,4 or 5");
             }
+
+            return numberOfDoors;
         }
     }
 }
