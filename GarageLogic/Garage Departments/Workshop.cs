@@ -10,7 +10,7 @@ namespace GarageLogic.Garage_Departments
     {
         public enum eVehicleStateInGarage
         {
-            InRepair, Repaired, Paid, All
+            InRepair = 1, Repaired, Paid, All
         }
 
         public void SetVehicleState(VehicleInGarage i_VehicleToRepair, eVehicleStateInGarage i_NewState)
