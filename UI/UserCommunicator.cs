@@ -75,27 +75,29 @@ namespace UI
             return Console.ReadLine();
         }
 
-        internal bool GetEnergyTypeOfEngine()
+        internal bool GetEnergyTypeOfEngine(List<string> i_TypeOfSupportedEngine)
         {
             bool isVehicleUsingGas = true; ;
             bool invalidInput = true;
             while (invalidInput)
             {
                 invalidInput = false;
-                Console.WriteLine("Does your vehicle uses gas? y/N");
-                string userAnswer = Console.ReadLine();
-                if (userAnswer == "y")
-                {
+                Console.WriteLine("What type of energy your engine use?");
+                printEnumeratedList(i_TypeOfSupportedEngine);
+                Console.WriteLine("Please enter the number of chosen type");
+                string userAnswer = Console.ReadLine();         ////                                           ////
+                if (userAnswer == "1")                          //// CANT LIKE IT ! FIND OTHER WAY TO WRITE IT ////
+                {                                               ////                                           ////
                     isVehicleUsingGas = true;
                 }
-                else if (userAnswer == "N")
+                else if (userAnswer == "2")
                 {
 
                     isVehicleUsingGas = false;
                 }
                 else
                 {
-                    Console.WriteLine("if the answer is yes please enter the small letter y, other enter the capital letter N");
+                    Console.WriteLine("The number you enter must be between 1 to {1}", i_TypeOfSupportedEngine.Count);
                     invalidInput = true;
                 }
             }
@@ -103,28 +105,48 @@ namespace UI
             return isVehicleUsingGas;
         }
 
-        internal string GetTypeOfVehicleToEnterTheGarage()
+        internal string GetTypeOfVehicleToEnterTheGarage(List<string> i_AllSupportedVehicleTypes)
         {
             Console.WriteLine("What the type of the vehicle?");
+            printEnumeratedList(i_AllSupportedVehicleTypes);
+            Console.WriteLine("Please enter the number of chosen type");
             return Console.ReadLine();
         }
 
-        public List<string> GetParametersFromUser(List<string> i_outputMessagesForParameters)
+        private void beforeParametersEnteringProccesMessage()
         {
+            Console.WriteLine("We are about to start the register procces," +
+                "\nPlease make sure to follow the instructions! \n" +
+                "Enter the values as written in the example in (...) \n" +
+                "When having to choose from a list of options - please enter the corresponding number");
+            Console.WriteLine("Enter any key to continue ...");
+            Console.ReadLine();
+            //Console.Clear();
+        }
+        public List<string> GetParametersFromUser(List<string> i_NameOfNeededParameters)
+        {
+            beforeParametersEnteringProccesMessage();
             List<string> userInputs = new List<string>();
-            foreach (string outputMessage in i_outputMessagesForParameters)
+            foreach (string parameterName in i_NameOfNeededParameters)
             {
-                Console.WriteLine(outputMessage);
+                Console.WriteLine("Please Enter " + parameterName);
                 string userInput = Console.ReadLine();
                 userInputs.Add(userInput);
             }
 
+
             return userInputs;
         }
 
-        internal List<string> GetInfoForVehicleInGarage()
+        internal List<string> GetInfoForVehicleInGarage(List<string> i_GetVehicleStatesValuesAsList)
         {
-            throw new NotImplementedException();
+            List<string> vehicleInGarageInfo = new List<string>();
+            Console.WriteLine("Please enter owner name:");
+            vehicleInGarageInfo.Add(Console.ReadLine());
+            Console.WriteLine("Please enter owner's phone number:");
+            vehicleInGarageInfo.Add(Console.ReadLine());
+
+            return vehicleInGarageInfo;
         }
     }
 }

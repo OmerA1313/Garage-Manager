@@ -80,14 +80,25 @@ namespace GarageLogic
             m_Secretary.EnterNewVehicleToGarage(i_vehicleInGarageInfo, newVehicle);
         }
 
-        public List<string> GetVehicleStatusValuesAsList()
+        public List<string> GetVehicleStatesValuesAsList()
         {
             return Enum.GetNames(typeof(eVehicleStateInGarage)).ToList();
         }
 
-        public List<string> GetFuelTypeValuesAsList()
+        public List<string> GetFuelTypeAsList()
         {
             return Enum.GetValues(typeof(eFuelType)).Cast<string>().ToList();
         }
+
+        public List<string> GetEnergyTypeAsList()
+        {
+            return Enum.GetNames(typeof(eEnergyType)).Cast<string>().ToList();
+        }
+
+        public List<string> GetSupportedVehicleTypesAsList()
+        {
+            return VehicleFactory.GetAllSupportedVehicleTypes();
+        }
+
     }
 }

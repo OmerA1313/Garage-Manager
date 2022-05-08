@@ -18,12 +18,9 @@ namespace GarageLogic
 
         private static Vehicle m_VehicleToCreate;
 
-        public static List<string> GetAllPossibleVehicleTypeNames() // in order to notify the user what vehicle can he choose -> THATS UNNECESRRY, WE CAN USE SOME METHOD LIKE I HAVE CREATED IN THE GARAGE.
+        public static List<string> GetAllSupportedVehicleTypes()
         {
-            IEnumerable<Type> possibleVehicleTypes =
-                typeof(Vehicle).Assembly.GetTypes().Where(type => type.IsSubclassOf(typeof(Vehicle)));
-            List<string> possibleTypesNames = possibleVehicleTypes.Select(i => i.Name).ToList();
-            return possibleTypesNames;
+            return Enum.GetNames(typeof(eVehicleType)).Cast<string>().ToList();
         }
 
         public static List<string> GetCretionParameters(string i_VehicleType, bool i_IsFuelEngine)
