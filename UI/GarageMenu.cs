@@ -68,7 +68,7 @@ namespace UI
                 {
                     case eMenuOptions.EnterNewVehicle:
                         string typeOfVehicle = m_communicator.GetTypeOfVehicleToEnterTheGarage(m_Garage.GetSupportedVehicleTypesAsList());
-                        bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine(m_Garage.GetEnergyTypeAsList());
+                        bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine(VehicleFactory.GetEnergyTypeAsList(typeOfVehicle));
                         List<string> parametersToGetFromUser = VehicleFactory.GetCretionParameters(typeOfVehicle, isFuelEngine);
                         List<string> userInputForParams = m_communicator.GetParametersFromUser(parametersToGetFromUser);
                         List<string> vehicleInGarageInfo = m_communicator.GetInfoForVehicleInGarage(m_Garage.GetVehicleStatesValuesAsList());
