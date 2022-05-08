@@ -107,25 +107,25 @@ namespace UI
 
         internal string GetTypeOfVehicle(List<string> i_AllSupportedVehicleTypes)
         {
-            Console.WriteLine("What the type of the vehicle?");
+            beforeParametersEnteringProccesMessage();
+            Console.WriteLine("Plese enter type of vehicle:");
             PrintEnumeratedList(i_AllSupportedVehicleTypes);
-            Console.WriteLine("Please enter the number of chosen type");
             return Console.ReadLine();
         }
 
         private void beforeParametersEnteringProccesMessage()
         {
-            Console.WriteLine("We are about to start the register procces," +
+            Console.WriteLine("We are about to begin the registration process," +
                 "\nPlease make sure to follow the instructions! \n" +
                 "Enter the values as written in the example in (...) \n" +
-                "When having to choose from a list of options - please enter the corresponding number");
-            Console.WriteLine("Enter any key to continue ...");
+                "When given a numbered list to choose from - please enter the corresponding number");
+            Console.WriteLine("Press any key to begin ...");
             Console.ReadLine();
             //Console.Clear();
         }
+
         public List<string> GetParametersFromUser(List<string> i_NameOfNeededParameters)
         {
-            beforeParametersEnteringProccesMessage();
             List<string> userInputs = new List<string>();
             foreach (string parameterName in i_NameOfNeededParameters)
             {

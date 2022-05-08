@@ -32,14 +32,19 @@ namespace GarageLogic
             return details;
         }
 
-        public override List<string> GetParameters() 
+        private string isRefrigeratedToString(bool i_IsRefrigerated)
+        {
+            return i_IsRefrigerated ? "Yes" : "No";
+        }
+
+        public override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
             parameters.Add("Is refrigerated:\n" + getYesNoOptions());
             parameters.Add("Loading capacity");
             return parameters;
         }
-        
+
         private string getYesNoOptions()
         {
             return "1. Yes\n" +
@@ -49,8 +54,8 @@ namespace GarageLogic
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            m_IsRefrigerated = convertYesNoOptionsToBoolean(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
-            m_LoadingCapacity = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+            m_IsRefrigerated = convertYesNoOptionsToBoolean(Utils.PopFirstItemOfList(i_Parameters));
+            m_LoadingCapacity = float.Parse(Utils.PopFirstItemOfList(i_Parameters));
         }
 
         /// <summary>

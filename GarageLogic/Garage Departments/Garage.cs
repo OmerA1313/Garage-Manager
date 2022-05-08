@@ -22,11 +22,21 @@ namespace GarageLogic
             m_Mechanic = new Workshop();
         }
 
-        public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage)
+        public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage, bool i_WithFilteration)
         // 2
         {
-            eVehicleStateInGarage desiredState = parseVehicleState(i_VehicleStateInGarage);
-            return m_Secretary.GetLicensePlatesInGarage(desiredState);
+            List<string> licensePlates;
+            if(i_WithFilteration)
+            {
+                eVehicleStateInGarage desiredState = parseVehicleState(i_VehicleStateInGarage);
+                licensePlates = m_Secretary.GetLicensePlatesInGarage(desiredState);
+            }
+            else
+            {
+                licensePlates = m_Secretary.GetAllLicensePlatesInGarage();
+            }
+
+            return licensePlates;
         }
 
         private eVehicleStateInGarage parseVehicleState(string i_VehicleState)
@@ -96,7 +106,7 @@ namespace GarageLogic
 
         public List<string> GetEnergyTypesAsList()
         {
-            return Enum.GetNames(typeof(eEnergyType)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eEnergyType)).ToList();
         }
 
         public List<string> GetSupportedVehicleTypesAsList()

@@ -57,16 +57,16 @@ namespace GarageLogic
             return parameters;
         }
 
-        private List<string> getVehicleColorOptionsAsList()
-        {
-            return Enum.GetNames(typeof(eCarColor)).ToList();
-        }
-
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
             m_Color = parseCarColor(Utils.PopFirstItemOfList(i_Parameters));
             m_NumberOfDoors = parseNumberOfDoors(Utils.PopFirstItemOfList(i_Parameters));
+        }
+
+        private List<string> getVehicleColorOptionsAsList()
+        {
+            return Enum.GetNames(typeof(eCarColor)).ToList();
         }
 
         private eCarColor parseCarColor(string i_CarColor)

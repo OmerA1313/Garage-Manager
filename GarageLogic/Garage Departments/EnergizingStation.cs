@@ -14,6 +14,7 @@ namespace GarageLogic.Garage_Departments
             Gas = 1,
             Electricity
         }
+
         public enum eFuelType
         {
             Soler = 1,

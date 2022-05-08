@@ -46,8 +46,33 @@ namespace GarageLogic
 
         public void SetParameters(string i_CurrentWheelAirPressure, string i_ManufacturerName)
         {
-            m_CurrentAirPressure = float.Parse(i_CurrentWheelAirPressure);
+            setAirPressure(ParseAirPressure(i_CurrentWheelAirPressure));
             m_ManufacturerName = i_ManufacturerName;
+        }
+
+        private float ParseAirPressure(string i_AirPressure)
+        {
+            float airPressure;
+            bool airPressureParsed = float.TryParse(i_AirPressure, out airPressure);
+            if(!airPressureParsed)
+            {
+                throw new FormatException("Wrong air pressure input");
+            }
+
+            return airPressure;
+        }
+
+        private void setAirPressure(float i_NewAirPressure)
+        {
+            if(i_NewAirPressure > m_MaxAirPressure)
+            {
+                throw new ValueOutOfRangeException(
+                    0,
+                    m_MaxAirPressure,
+                    $"Air pressure out of range, maximum value is : {m_MaxAirPressure}");
+            }
+
+            m_CurrentAirPressure = i_NewAirPressure;
         }
     }
 }

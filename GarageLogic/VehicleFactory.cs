@@ -15,19 +15,18 @@ namespace GarageLogic
             Truck
         }
 
-
         private static Vehicle m_VehicleToCreate;
 
         public static List<string> GetAllSupportedVehicleTypes()
         {
-            return Enum.GetNames(typeof(eVehicleType)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eVehicleType)).ToList();
         }
 
         public static List<string> GetCreationParameters(string i_VehicleType, string i_LicensePlate, bool i_IsFuelEngine)
         {
             List<string> paramters = null;
             eVehicleType vehicleType;
-            bool parsingSucces = Enum.TryParse<eVehicleType>(i_VehicleType, out vehicleType);
+            bool parsingSucces = Enum.TryParse(i_VehicleType, out vehicleType);
             if (parsingSucces)
             {
                 switch (vehicleType)

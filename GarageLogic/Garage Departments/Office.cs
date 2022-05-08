@@ -30,21 +30,26 @@ namespace GarageLogic.Garage_Departments
             return vehicleToFind;
         }
 
-        internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage = eVehicleStateInGarage.All) // TTODO: Solve combine
+        internal List<string> GetAllLicensePlatesInGarage()
+        {
+            return m_LicensePlateToVehicle.Keys.ToList();
+        }
+
+        internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage) // TTODO: Solve combine
         // 2
         {
-            bool retrieveAll = i_VehicleStateInGarage == eVehicleStateInGarage.All;
-            List<string> LicensePlates = new List<string>();
-
-            foreach (VehicleInGarage vehicleInGarage in m_LicensePlateToVehicle.Values)
+            List<string> licensePlates = GetAllLicensePlatesInGarage();
+            foreach(string licensePlate in licensePlates)
             {
-                if (retrieveAll || vehicleInGarage.VehicleState == i_VehicleStateInGarage)
+                VehicleInGarage vehicle;
+                m_LicensePlateToVehicle.TryGetValue(licensePlate, out vehicle);
+                if (vehicle.VehicleState != i_VehicleStateInGarage)
                 {
-                    LicensePlates.Add(vehicleInGarage.Vehicle.LicensePlate);
+                    licensePlates.Remove(licensePlate);
                 }
             }
 
-            return LicensePlates;
+            return licensePlates;
         }
 
         internal bool IsVehicleInGarage(string i_LicensePlate)
@@ -65,5 +70,7 @@ namespace GarageLogic.Garage_Departments
             newVehicleInGarage.Vehicle = i_NewCreatedVehicle;
             m_LicensePlateToVehicle.Add(i_NewCreatedVehicle.LicensePlate, newVehicleInGarage);
         }
+
+       
     }
 }
