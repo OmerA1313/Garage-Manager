@@ -38,18 +38,19 @@ namespace GarageLogic.Garage_Departments
         internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage)
         // 2
         {
-            List<string> licensePlates = GetAllLicensePlatesInGarage();
-            foreach(string licensePlate in licensePlates)
+            List<string> allLicensePlatesInGarage = GetAllLicensePlatesInGarage();
+            List<string> returnedList = new List<string>();
+            foreach(string licensePlate in allLicensePlatesInGarage)
             {
                 VehicleInGarage vehicle;
                 m_LicensePlateToVehicle.TryGetValue(licensePlate, out vehicle);
-                if (vehicle.VehicleState != i_VehicleStateInGarage)
+                if (vehicle.VehicleState == i_VehicleStateInGarage)
                 {
-                    licensePlates.Remove(licensePlate);
+                    returnedList.Add(licensePlate);
                 }
             }
 
-            return licensePlates;
+            return returnedList;
         }
 
         internal bool IsVehicleInGarage(string i_LicensePlate)

@@ -71,13 +71,29 @@ namespace GarageLogic
             m_Mechanic.InflateWheelsToMax(vehicleToInflate);
         }
 
-        public void EnergizeVehicle(string i_LicensePlate, string i_EnergyAmount, string i_FuelType = default)
-        // 5+6
+        public void RefuelVehicle(string i_LicensePlate, string i_FuelAmount, string i_FuelType)
         {
-            float energyAmount = float.Parse(i_EnergyAmount);
+            float energyAmount = float.Parse(i_FuelAmount);
             VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
+            if(!(vehicleToEnergize.Vehicle.Engine is FuelEngine))
+            {
+                throw new ArgumentException($"Vehicle {i_LicensePlate} is not fuel-motored");
+            }
+
             eFuelType desiredFuelType = m_EnergyFiller.ParseFuelType(i_FuelType);
-            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, energyAmount);
+            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, energyAmount,desiredFuelType);
+        }
+
+        public void RechargeVehicle(string i_LicensePlate, string i_BatteryTime)
+        {
+            float batteryTime = float.Parse(i_BatteryTime);
+            VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
+            if (!(vehicleToEnergize.Vehicle.Engine is ElectricEngine))
+            {
+                throw new ArgumentException($"Vehicle {i_LicensePlate} is not electric-motored");
+            }
+
+            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, batteryTime);
         }
 
         public Dictionary<string, string> GetVehicleDetails(string i_LicensePlate)
@@ -102,11 +118,6 @@ namespace GarageLogic
         public List<string> GetFuelTypeAsList()
         {
             return Enum.GetNames(typeof(eFuelType)).ToList();
-        }
-
-        public List<string> GetEnergyTypesAsList()
-        {
-            return Enum.GetNames(typeof(eEnergyType)).ToList();
         }
 
         public List<string> GetSupportedVehicleTypesAsList()
