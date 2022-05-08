@@ -31,10 +31,10 @@ namespace GarageLogic
             return details;
         }
 
-        public override List<string> GetParameters()
+        public override List<string> GetParameters() 
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Is refrigerated");
+            parameters.Add("Is refrigerated"); //TODO: yes/no
             parameters.Add("Loading capacity");
             return parameters;
         }
