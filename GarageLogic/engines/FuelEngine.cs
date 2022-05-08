@@ -16,7 +16,7 @@ namespace GarageLogic
             if(m_FuelType != i_FuelType)
             {
                 string exceptionMessage = string.Format(
-                    "Wrong fuel type, expected type is: {0}, but recieved: {1}",
+                    "Wrong fuel type, expected type is: {0}, but received: {1}",
                     m_FuelType,
                     i_FuelType.ToString());
                 throw new ArgumentException(exceptionMessage);
@@ -31,7 +31,7 @@ namespace GarageLogic
             set {m_FuelType = value;}
         }
 
-        public override Dictionary<string, string> GetDetails()
+        internal override Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = new Dictionary<string, string>();
             details.Add("Fuel Type", m_FuelType.ToString());
@@ -40,7 +40,7 @@ namespace GarageLogic
             return details;
         }
 
-        public override List<string> GetParameters()
+        internal override List<string> GetParameters()
         {
             List<string> parameters = new List<string>();
             parameters.Add($"Current Fuel amount, maximum value is {m_MaxEnergyAmount}");

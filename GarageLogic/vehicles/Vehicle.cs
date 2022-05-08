@@ -56,7 +56,7 @@ namespace GarageLogic
             return details;
         }
 
-        public virtual List<string> GetParameters()
+        internal virtual List<string> GetParameters()
         {
             List<string> parameters = new List<string>();
             //parameters.Add("License Plate");
@@ -66,7 +66,7 @@ namespace GarageLogic
             return parameters;
         }
 
-        public virtual void SetParameters(List<string> i_Parameters)
+        internal virtual void SetParameters(List<string> i_Parameters)
         {
             //m_LicensePlate = Utils.PopFirstItemOfList(i_Parameters);
             m_ModelName = Utils.PopFirstItemOfList(i_Parameters);

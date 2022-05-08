@@ -7,7 +7,7 @@ namespace UI
 {
     internal class UserCommunicator
     {
-        public eMenuOptions GetMenuOptionFromUser()
+        internal eMenuOptions GetMenuOptionFromUser()
         {
             string userChoice = Console.ReadLine();
             Console.Clear();
@@ -16,12 +16,12 @@ namespace UI
             return userParsedChoice;
         }
 
-        public void PrintMenu(string i_MenuString)
+        internal void PrintMenu(string i_MenuString)
         {
             Console.WriteLine(i_MenuString);
         }
 
-        public string GetLicensePlateFromUser()
+        internal string GetLicensePlateFromUser()
         {
             bool invalidInput = true;
             string userInput = null;
@@ -36,7 +36,7 @@ namespace UI
             return userInput;
         }
 
-        public bool GetFilterationChoiceFromUser(List<string> i_AllAvailableCarStates, out string o_VehicleState)
+        internal bool GetFilterationChoiceFromUser(List<string> i_AllAvailableCarStates, out string o_VehicleState)
         {
             bool filterationNeeded = true;
             Console.WriteLine("Please enter vehicle state:");
@@ -156,18 +156,18 @@ namespace UI
                 "\nPlease make sure to follow the instructions! \n" +
                 "Enter the values as written in the example in (...) \n" +
                 "When given a numbered list to choose from - please enter the corresponding number");
-                WaitForAnyKeyWithMessageAndClearScreen("", "start the registration proccess");
+            WaitForAnyKeyWithMessageAndClearScreen("", "start the registration process");
         }
 
-        public void WaitForAnyKeyWithMessageAndClearScreen(string i_message, string i_WhatHappendAter)
+        internal void WaitForAnyKeyWithMessageAndClearScreen(string i_Message, string i_WhatHappendAter)
         {
-            Console.WriteLine(i_message);
+            Console.WriteLine(i_Message);
             Console.WriteLine("Enter any key to " + i_WhatHappendAter + "...");
             Console.ReadLine();
             Console.Clear();
         }
 
-        public List<string> GetParametersFromUser(List<string> i_NameOfNeededParameters)
+        internal List<string> GetParametersFromUser(List<string> i_NameOfNeededParameters)
         {
             List<string> userInputs = new List<string>();
             foreach (string parameterName in i_NameOfNeededParameters)
@@ -176,7 +176,6 @@ namespace UI
                 string userInput = Console.ReadLine();
                 userInputs.Add(userInput);
             }
-
 
             return userInputs;
         }
@@ -192,7 +191,7 @@ namespace UI
             return vehicleInGarageInfo;
         }
 
-        public void PrintMessage(string i_ExMessage)
+        internal void PrintMessage(string i_ExMessage)
         {
             Console.WriteLine(i_ExMessage);
         }

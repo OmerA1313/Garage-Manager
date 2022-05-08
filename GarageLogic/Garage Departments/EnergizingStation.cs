@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace GarageLogic.Garage_Departments
 {
-    class EnergizingStation
+    internal class EnergizingStation
     {
 
-        public enum eEnergyType
+        internal enum eEnergyType
         {
             Gas = 1,
             Electricity
         }
 
-        public enum eFuelType
+        internal enum eFuelType
         {
             Soler = 1,
             Octan95,
@@ -23,13 +23,12 @@ namespace GarageLogic.Garage_Departments
             Octan98
         }
 
-        public void EnergizeVehicle(VehicleInGarage i_VehicleToEnergize, float i_EnergyAmount, eFuelType i_FuelType = default)
-        // 5+6
+        internal void EnergizeVehicle(VehicleInGarage i_VehicleToEnergize, float i_EnergyAmount, eFuelType i_FuelType = default)
         {
             i_VehicleToEnergize.Vehicle.Engine.Energize(i_EnergyAmount, i_FuelType);
         }
 
-        public eFuelType ParseFuelType(string i_FuelType)
+        internal eFuelType ParseFuelType(string i_FuelType)
         {
             eFuelType desiredFuelType;
             bool enumConversionSuccses = Enum.TryParse(i_FuelType, out desiredFuelType);

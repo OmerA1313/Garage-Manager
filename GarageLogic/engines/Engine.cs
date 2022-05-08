@@ -12,7 +12,7 @@ namespace GarageLogic
         protected float m_CurrentEnergyAmount;
         protected float m_MaxEnergyAmount;
 
-        internal virtual void Energize(float i_EnergyAmount, eFuelType i_FuelType = default) // TODO combina - maybe use params?
+        internal virtual void Energize(float i_EnergyAmount, eFuelType i_FuelType = default)
         {
             float newEnergyAmount = i_EnergyAmount + m_CurrentEnergyAmount;
             setEnergyAmount(newEnergyAmount);
@@ -34,9 +34,9 @@ namespace GarageLogic
             set {m_MaxEnergyAmount = value;}
         }
 
-        public abstract Dictionary<string, string> GetDetails();
+        internal abstract Dictionary<string, string> GetDetails();
 
-        public abstract List<string> GetParameters();
+        internal abstract List<string> GetParameters();
 
         public virtual void SetParameters(List<string> i_Parameters)
         {
