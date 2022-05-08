@@ -12,9 +12,9 @@ namespace GarageLogic
         private eCarColor m_Color;
         private int m_NumberOfDoors;
         private readonly int m_MaxWheelAirPressure = 29;
-        private readonly int m_NumberOfWheels = 2;
-        private readonly float m_FuledEngingCapacity = 6.2F;
-        private readonly float m_ElectricEngingCapacity = 2.5F;
+        private readonly int m_NumberOfWheels = 4;
+        private readonly float m_FuledEngingCapacity = 38;
+        private readonly float m_ElectricEngingCapacity = 3.3F;
 
         internal enum eCarColor
         {
@@ -23,20 +23,20 @@ namespace GarageLogic
 
         internal Car(bool i_IsFuelEngine)
         {
-            m_Wheels = new List<Wheel>(4); // TODO change to readOnly, and send number of wheels as parameter
-            base.CreateWheels(29);
+            m_Wheels = new List<Wheel>(m_NumberOfWheels); // TODO change to readOnly, and send number of wheels as parameter
+            base.CreateWheels(m_MaxWheelAirPressure);
             base.CreateEngine(i_IsFuelEngine);
 
             if(i_IsFuelEngine)
             {
                 FuelEngine engine = m_Engine as FuelEngine;
                 engine.FuelType = EnergizingStation.eFuelType.Octan95;
-                engine.MaxEnergyAmount = 38;
+                engine.MaxEnergyAmount = m_FuledEngingCapacity;
             }
             else
             {
                 ElectricEngine engine = m_Engine as ElectricEngine;
-                engine.MaxEnergyAmount = 3.3F;
+                engine.MaxEnergyAmount = m_ElectricEngingCapacity;
             }
         }
 

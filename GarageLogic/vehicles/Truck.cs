@@ -10,14 +10,15 @@ namespace GarageLogic
 {
     internal class Truck : Vehicle
     {
-        private readonly int m_NumberOfWheels = 16;
         private bool m_IsRefrigerated;
         private float m_LoadingCapacity;
+        private readonly int m_NumberOfWheels = 16;
+        private readonly int m_MaxWheelAirPressure = 24;
 
         internal Truck()
         {
             m_Wheels = new List<Wheel>(m_NumberOfWheels);
-            base.CreateWheels(24);
+            base.CreateWheels(m_MaxWheelAirPressure);
             m_Engine = new FuelEngine();
             FuelEngine engine = m_Engine as FuelEngine;
             engine.FuelType = EnergizingStation.eFuelType.Soler;
