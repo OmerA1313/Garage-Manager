@@ -56,7 +56,6 @@
     <Compile Include="Vehicles\Vehicle.cs" />
     <Compile Include="VehicleFactory.cs" />
     <Compile Include="VehicleInGarage.cs" />
-    <Compile Include="Customized Exceptions\VehicleNotFoundException.cs" />
     <Compile Include="Wheel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,10 +11,10 @@ namespace GarageLogic
     {
         private eCarColor m_Color;
         private int m_NumberOfDoors;
-        private static readonly int m_MaxWheelAirPressure = 29;
-        private static readonly int m_NumberOfWheels = 4;
-        private static readonly float m_FuledEngingCapacity = 38;
-        private static readonly float m_ElectricEngingCapacity = 3.3F;
+        private static readonly int sr_MaxWheelAirPressure = 29;
+        private static readonly int sr_NumberOfWheels = 4;
+        private static readonly float sr_FuledEngingCapacity = 38;
+        private static readonly float sr_ElectricEngingCapacity = 3.3F;
 
         internal enum eCarColor
         {
@@ -23,21 +23,20 @@ namespace GarageLogic
 
         internal Car(bool i_IsFuelEngine)
         {
-            m_Wheels = new List<Wheel>(m_NumberOfWheels);
-            base.CreateWheels(m_MaxWheelAirPressure);
+            m_Wheels = new List<Wheel>(sr_NumberOfWheels);
+            base.CreateWheels(sr_MaxWheelAirPressure);
             base.CreateEngine(i_IsFuelEngine);
 
             if(i_IsFuelEngine)
             {
                 FuelEngine engine = m_Engine as FuelEngine;
                 engine.FuelType = EnergizingStation.eFuelType.Octan95;
-                engine.MaxEnergyAmount = m_FuledEngingCapacity;
+                engine.MaxEnergyAmount = sr_FuledEngingCapacity;
             }
             else
             {
                 ElectricEngine engine = m_Engine as ElectricEngine;
-                engine.MaxEnergyAmount = m_ElectricEngingCapacity;
-
+                engine.MaxEnergyAmount = sr_ElectricEngingCapacity;
             }
         }
 
@@ -49,7 +48,7 @@ namespace GarageLogic
             return details;
         }
 
-        public override List<string> GetParameters()
+        internal override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
             parameters.Add("Color:\n" + Utils.CreateEnumeratedOptions(getVehicleColorOptionsAsList()));
@@ -57,7 +56,7 @@ namespace GarageLogic
             return parameters;
         }
 
-        public override void SetParameters(List<string> i_Parameters)
+        internal override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
             m_Color = parseCarColor(Utils.PopFirstItemOfList(i_Parameters));

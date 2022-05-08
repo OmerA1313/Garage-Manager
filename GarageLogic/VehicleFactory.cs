@@ -9,7 +9,6 @@ namespace GarageLogic
 {
     public static class VehicleFactory
     {
-
         private static Vehicle m_VehicleToCreate;
 
         enum eVehicleType

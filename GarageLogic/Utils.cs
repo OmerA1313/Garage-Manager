@@ -20,7 +20,8 @@ namespace GarageLogic
 
             return String.Join("\n", enumeratedOptions);
         }
-        public static Dictionary<string, string> ConcatDictionary(Dictionary<string, string> i_DestDict, Dictionary<string, string> i_SrcDict)
+
+        internal static Dictionary<string, string> ConcatDictionary(Dictionary<string, string> i_DestDict, Dictionary<string, string> i_SrcDict)
         {
             foreach(var item in i_SrcDict)
             {
@@ -30,7 +31,7 @@ namespace GarageLogic
             return i_DestDict;
         }
 
-        public static void ConcatLists(List<string> i_DestList, List<string> i_SrcList)
+        internal static void ConcatLists(List<string> i_DestList, List<string> i_SrcList)
         {
             foreach(string str in i_SrcList)
             {
@@ -38,7 +39,7 @@ namespace GarageLogic
             }
         }
 
-        public static string PopFirstItemOfList(List<string> i_Parameters)
+        internal static string PopFirstItemOfList(List<string> i_Parameters)
         {
             string toRemove = i_Parameters.First();
             i_Parameters.RemoveAt(0);

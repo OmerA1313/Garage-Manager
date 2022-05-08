@@ -13,7 +13,7 @@ namespace GarageLogic
         private string m_OwnerPhoneNumber;
         private Garage_Departments.Workshop.eVehicleStateInGarage m_VehicleState = Garage_Departments.Workshop.eVehicleStateInGarage.InRepair;
 
-        public VehicleInGarage(List<string> i_VehicleInGarageInfo)
+        internal VehicleInGarage(List<string> i_VehicleInGarageInfo)
         {
             m_OwnerName = Utils.PopFirstItemOfList(i_VehicleInGarageInfo);
             m_OwnerPhoneNumber = Utils.PopFirstItemOfList(i_VehicleInGarageInfo);
@@ -31,11 +31,7 @@ namespace GarageLogic
             set { m_VehicleState = value; }
         }
 
-        public string OwnerName { get; set; }
-
-        public string OwnerPhoneNumber { get; set; }
-
-        public Dictionary<string, string> GetDetails()
+        internal Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = Vehicle.GetDetails();
             details.Add("Owner name", m_OwnerName);

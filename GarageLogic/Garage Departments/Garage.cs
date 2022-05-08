@@ -23,7 +23,6 @@ namespace GarageLogic
         }
 
         public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage, bool i_WithFilteration)
-        // 2
         {
             List<string> licensePlates;
             if(i_WithFilteration)
@@ -52,20 +51,18 @@ namespace GarageLogic
         }
 
         public void SetVehicleState(string i_LicensePlate, string i_NewState)
-        // 3
         {
             eVehicleStateInGarage newState = parseVehicleState(i_NewState);
-            SetVehicleState(i_LicensePlate,newState);
+            setVehicleState(i_LicensePlate,newState);
         }
 
-        internal void SetVehicleState(string i_LicensePlate, eVehicleStateInGarage i_NewState)
+        private void setVehicleState(string i_LicensePlate, eVehicleStateInGarage i_NewState)
         {
             VehicleInGarage vehicleToRepair = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
             m_Mechanic.SetVehicleState(vehicleToRepair, i_NewState);
         }
 
         public void InflateVehicleToMax(string i_LicensePlateToInflate)
-        // 4
         {
             VehicleInGarage vehicleToInflate = m_Secretary.GetVehicleByLicensePlate(i_LicensePlateToInflate);
             m_Mechanic.InflateWheelsToMax(vehicleToInflate);
@@ -98,16 +95,15 @@ namespace GarageLogic
 
         public Dictionary<string, string> GetVehicleDetails(string i_LicensePlate)
         {
-            // 7
             VehicleInGarage vehicleToGetDetails = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
             Dictionary<string, string> vehicleDetails = vehicleToGetDetails.GetDetails();
             return vehicleDetails;
         }
 
-        public void CreateAndEnterVehicleToGarage(List<string> i_ParametersForVehicleCreation, List<string> i_vehicleInGarageInfo)
+        public void CreateAndEnterVehicleToGarage(List<string> i_ParametersForVehicleCreation, List<string> i_VehicleInGarageInfo)
         {
             Vehicle newVehicle = VehicleFactory.CreateNewVehicleFromParameters(i_ParametersForVehicleCreation);
-            m_Secretary.EnterNewVehicleToGarage(i_vehicleInGarageInfo, newVehicle);
+            m_Secretary.EnterNewVehicleToGarage(i_VehicleInGarageInfo, newVehicle);
         }
 
         public List<string> GetVehicleStatesValuesAsList()
@@ -130,9 +126,9 @@ namespace GarageLogic
             return m_Secretary.IsVehicleInGarage(i_LicensePlate);
         }
 
-        public void ResetStateOfExistingVehicle(string i_LicnesePlate)
+        public void ResetStateOfExistingVehicle(string i_LicensePlate)
         {
-            SetVehicleState(i_LicnesePlate, eVehicleStateInGarage.InRepair);
+            setVehicleState(i_LicensePlate, eVehicleStateInGarage.InRepair);
         }
     }
 }

@@ -7,7 +7,7 @@ using static GarageLogic.Garage_Departments.Workshop;
 
 namespace GarageLogic.Garage_Departments
 {
-    class Office
+    internal class Office
     {
 
         private Dictionary<string, VehicleInGarage> m_LicensePlateToVehicle;
@@ -36,7 +36,6 @@ namespace GarageLogic.Garage_Departments
         }
 
         internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage)
-        // 2
         {
             List<string> allLicensePlatesInGarage = GetAllLicensePlatesInGarage();
             List<string> returnedList = new List<string>();
@@ -71,7 +70,5 @@ namespace GarageLogic.Garage_Departments
             newVehicleInGarage.Vehicle = i_NewCreatedVehicle;
             m_LicensePlateToVehicle.Add(i_NewCreatedVehicle.LicensePlate, newVehicleInGarage);
         }
-
-       
     }
 }

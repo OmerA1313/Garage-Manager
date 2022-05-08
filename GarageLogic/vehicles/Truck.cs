@@ -12,18 +12,18 @@ namespace GarageLogic
     {
         private bool m_IsRefrigerated;
         private float m_LoadingCapacity;
-        private static readonly int m_NumberOfWheels = 16;
-        private static readonly int m_MaxFuelCapacity = 120;
-        private static readonly int m_MaxWheelAirPressure = 24;
+        private static readonly int sr_NumberOfWheels = 16;
+        private static readonly int sr_MaxFuelCapacity = 120;
+        private static readonly int sr_MaxWheelAirPressure = 24;
 
         internal Truck()
         {
-            m_Wheels = new List<Wheel>(m_NumberOfWheels);
-            base.CreateWheels(m_MaxWheelAirPressure);
+            m_Wheels = new List<Wheel>(sr_NumberOfWheels);
+            base.CreateWheels(sr_MaxWheelAirPressure);
             m_Engine = new FuelEngine();
             FuelEngine engine = m_Engine as FuelEngine;
             engine.FuelType = EnergizingStation.eFuelType.Soler;
-            engine.MaxEnergyAmount = m_MaxFuelCapacity;
+            engine.MaxEnergyAmount = sr_MaxFuelCapacity;
         }
 
         internal override Dictionary<string, string> GetDetails()
@@ -39,11 +39,11 @@ namespace GarageLogic
             return i_IsRefrigerated ? "Yes" : "No";
         }
 
-        public override List<string> GetParameters()
+        internal override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
             parameters.Add("Is refrigerated:\n" + getYesNoOptions());
-            parameters.Add("Loading capacity");
+            parameters.Add("Loading capacity (Kg)");
             return parameters;
         }
 
@@ -53,7 +53,7 @@ namespace GarageLogic
                     "2. No";
         }
 
-        public override void SetParameters(List<string> i_Parameters)
+        internal override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
             m_IsRefrigerated = convertYesNoOptionsToBoolean(Utils.PopFirstItemOfList(i_Parameters));
@@ -80,8 +80,9 @@ namespace GarageLogic
             }
             else
             {
-                throw new ArgumentException("The answer for 'is the truk carries refrigerated?' should be answered by 1 or 2 only.");
+                throw new ArgumentException("The answer for 'does the truck carry refrigerated content?' should be answered by 1 or 2 only.");
             }
+
             return returnVal;
         }
     }

@@ -8,7 +8,7 @@ namespace GarageLogic
 {
     internal class ElectricEngine : Engine
     {
-        public override Dictionary<string, string> GetDetails()
+        internal override Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = new Dictionary<string, string>();
             details.Add("Time left in battery",m_CurrentEnergyAmount.ToString());
@@ -16,7 +16,7 @@ namespace GarageLogic
             return details;
         }
 
-        public override List<string> GetParameters()
+        internal override List<string> GetParameters()
         {
             List<string> parameters = new List<string>();
             parameters.Add($"Current time in battery, maximum value is {m_MaxEnergyAmount}"); //TODO inform max amount
