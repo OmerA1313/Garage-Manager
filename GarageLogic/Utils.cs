@@ -26,7 +26,7 @@ namespace GarageLogic
             }
         }
 
-        public static string GetAndRemoveFirstItemOfList(List<string> i_Parameters)
+        public static string PopFirstItemOfList(List<string> i_Parameters)
         {
             string toRemove = i_Parameters.First();
             i_Parameters.RemoveAt(0);

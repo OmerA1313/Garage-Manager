@@ -19,7 +19,7 @@ namespace GarageLogic
         public override List<string> GetParameters()
         {
             List<string> parameters = new List<string>();
-            parameters.Add("Current time in battery");
+            parameters.Add($"Current time in battery, maximum value is {m_MaxEnergyAmount}"); //TODO inform max amount
             return parameters;
         }
     }
