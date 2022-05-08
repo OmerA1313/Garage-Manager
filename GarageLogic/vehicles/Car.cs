@@ -11,6 +11,10 @@ namespace GarageLogic
     {
         private eCarColor m_Color;
         private int m_NumberOfDoors;
+        private readonly int m_MaxWheelAirPressure = 29;
+        private readonly int m_NumberOfWheels = 2;
+        private readonly float m_FuledEngingCapacity = 6.2F;
+        private readonly float m_ElectricEngingCapacity = 2.5F;
 
         internal enum eCarColor
         {
@@ -20,19 +24,19 @@ namespace GarageLogic
         internal Car(bool i_IsFuelEngine)
         {
             m_Wheels = new List<Wheel>(4); // TODO change to readOnly, and send number of wheels as parameter
-            base.SetWheels(29);
+            base.CreateWheels(29);
             base.CreateEngine(i_IsFuelEngine);
 
             if(i_IsFuelEngine)
             {
                 FuelEngine engine = m_Engine as FuelEngine;
                 engine.FuelType = EnergizingStation.eFuelType.Octan95;
-                engine.Capacity = 38;
+                engine.MaxEnergyAmount = 38;
             }
             else
             {
                 ElectricEngine engine = m_Engine as ElectricEngine;
-                engine.Capacity = 3.3F;
+                engine.MaxEnergyAmount = 3.3F;
             }
         }
 
@@ -47,25 +51,12 @@ namespace GarageLogic
         public override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Color:\n" + createEnumeratedColorOptions(getVehicleColorOptionsAsList())); // maybe extract to the utils class
+            parameters.Add("Color:\n" + Utils.CreateEnumeratedOptions(getVehicleColorOptionsAsList()));
             parameters.Add("Number of doors");
             return parameters;
         }
 
-        private string createEnumeratedColorOptions(List<string> i_ListToTakeTheOptionsFrom)
-        {
-            List<string> enumeratedOptions = new List<string>();
-            int indexOfOption = 1;
-            foreach (string option in i_ListToTakeTheOptionsFrom)
-            {
-                enumeratedOptions.Add(string.Format("{0}. {1}", indexOfOption, option));
-                indexOfOption++;
-            }
-
-            return String.Join("\n",enumeratedOptions);
-        }
-
-        public List<string> getVehicleColorOptionsAsList()
+        private List<string> getVehicleColorOptionsAsList()
         {
             return Enum.GetNames(typeof(eCarColor)).ToList();
         }

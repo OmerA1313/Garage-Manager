@@ -17,7 +17,7 @@ namespace GarageLogic
         internal Truck()
         {
             m_Wheels = new List<Wheel>(m_NumberOfWheels);
-            base.SetWheels(24);
+            base.CreateWheels(24);
             m_Engine = new FuelEngine();
             FuelEngine engine = m_Engine as FuelEngine;
             engine.FuelType = EnergizingStation.eFuelType.Soler;
@@ -34,16 +34,46 @@ namespace GarageLogic
         public override List<string> GetParameters() 
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Is refrigerated"); //TODO: yes/no
+            parameters.Add("Is refrigerated:\n" + getYesNoOptions());
             parameters.Add("Loading capacity");
             return parameters;
+        }
+        private string getYesNoOptions()
+        {
+            return "1. Yes\n" +
+                    "2. No";
         }
 
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            m_IsRefrigerated = Convert.ToBoolean(int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters))); // TODO parse from string to boolean
+            m_IsRefrigerated = convertYesNoOptionsToBoolean(Utils.GetAndRemoveFirstItemOfList(i_Parameters)); // TODO parse from string to boolean
             m_LoadingCapacity = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+        }
+
+        /// <summary>
+        /// throws ArgumentException with moduled message about expected input
+        /// </summary>
+        /// <param name="UserInput"></param>
+        /// <returns> UserInput is 1 -> True <br/> 
+        ///           UserInput is 2 -> False  
+        /// </returns>
+        private bool convertYesNoOptionsToBoolean(string i_UserInput)
+        {
+            bool returnVal;
+            if (i_UserInput == "1")
+            {
+                returnVal = true;
+            }
+            else if (i_UserInput == "2")
+            {
+                returnVal = false;
+            }
+            else
+            {
+                throw new ArgumentException("The answer for 'is the truk carries refrigerated?' should be answered by 1 or 2 only.");
+            }
+            return returnVal;
         }
     }
 }
