@@ -14,7 +14,7 @@ namespace GarageLogic
             MotoyCycle,
             Truck
         }
-        
+
 
         private static Vehicle m_VehicleToCreate;
 
