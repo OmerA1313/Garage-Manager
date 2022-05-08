@@ -13,6 +13,7 @@ namespace GarageLogic
         private bool m_IsRefrigerated;
         private float m_LoadingCapacity;
         private readonly int m_NumberOfWheels = 16;
+        private readonly int m_MaxFuelCapacity = 120;
         private readonly int m_MaxWheelAirPressure = 24;
 
         internal Truck()
@@ -22,6 +23,7 @@ namespace GarageLogic
             m_Engine = new FuelEngine();
             FuelEngine engine = m_Engine as FuelEngine;
             engine.FuelType = EnergizingStation.eFuelType.Soler;
+            engine.MaxEnergyAmount = m_MaxFuelCapacity;
         }
 
         internal override Dictionary<string, string> GetDetails()

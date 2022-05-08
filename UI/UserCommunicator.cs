@@ -7,7 +7,7 @@ namespace UI
 {
     internal class UserCommunicator
     {
-        public GarageMenu.eMenuOptions GetMenuOptionFromUser()
+        public eMenuOptions GetMenuOptionFromUser()
         {
             string userChoice = Console.ReadLine();
             eMenuOptions userParsedChoice;
@@ -22,24 +22,56 @@ namespace UI
 
         public string GetLicensePlateFromUser()
         {
-            Console.WriteLine("Please enter vehicle license plate:");
-            return Console.ReadLine();
-        }
+            bool invalidInput = true;
+            string userInput = null;
 
-        public string GetVehicleStateFromUser(List<string> i_AllAvailableCarStates)
-        {
-            PrintEnumeratedList(i_AllAvailableCarStates);
-            Console.WriteLine("Please enter vehicle state");
-            return Console.ReadLine();
-        }
-
-        internal void PrintEnumeratedList(List<string> i_ListedValuesOfEnum)
-        {
-            int index = 1;
-            foreach (string value in i_ListedValuesOfEnum)
+            while (invalidInput)
             {
-                Console.WriteLine("{0}. {1}", index, value);
-                index++;
+                Console.WriteLine("Please enter vehicle license plate:");
+                userInput = Console.ReadLine();
+                invalidInput = userInput.Length == 0;
+            }
+
+            return userInput;
+        }
+
+        public bool GetFilterationChoiceFromUser(List<string> i_AllAvailableCarStates, out string o_VehicleState)
+        {
+            bool filterationNeeded = true;
+            Console.WriteLine("Please enter vehicle state:");
+            PrintEnumeratedList(i_AllAvailableCarStates);
+            Console.WriteLine("4. All");
+            string userInput = Console.ReadLine();
+            if (userInput == "4")
+            {
+                filterationNeeded = false;
+                o_VehicleState = null;
+            }
+            else
+            {
+                o_VehicleState = userInput;
+            }
+
+            return filterationNeeded;
+        }
+
+        internal string GetVehicleState(List<string> i_AllAvailableCarStates)
+        {
+            Console.WriteLine("Please enter vehicle state:");
+            PrintEnumeratedList(i_AllAvailableCarStates);
+            return Console.ReadLine();
+        }
+
+        internal void PrintEnumeratedList(List<string> i_ListToPrint)
+        {
+            if (i_ListToPrint.Count != 0)
+            {
+                int index = 1;
+                foreach (string value in i_ListToPrint)
+                {
+                    Console.WriteLine("{0}. {1}", index, value);
+                    index++;
+                }
             }
         }
 
@@ -69,6 +101,7 @@ namespace UI
             Console.WriteLine("How many liters would you like to refule? Enter A number.");
             return Console.ReadLine();
         }
+
         internal string GetTimeToRecharcgAmountFromUser()
         {
             Console.WriteLine("How many minutes would you like to recharge? Enter A number.");
@@ -85,7 +118,7 @@ namespace UI
                 {
                     invalidInput = false;
                     Console.WriteLine("What type of energy your engine use?");
-                    printEnumeratedList(i_TypeOfSupportedEngine);
+                    PrintEnumeratedList(i_TypeOfSupportedEngine);
                     Console.WriteLine("Please enter the number of chosen type");
                     string userAnswer = Console.ReadLine();
 

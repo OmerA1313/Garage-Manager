@@ -35,7 +35,7 @@ namespace GarageLogic.Garage_Departments
             return m_LicensePlateToVehicle.Keys.ToList();
         }
 
-        internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage) // TTODO: Solve combine
+        internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage)
         // 2
         {
             List<string> licensePlates = GetAllLicensePlatesInGarage();
