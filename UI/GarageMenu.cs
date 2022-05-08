@@ -66,9 +66,18 @@ namespace UI
                 menuOptionChoice = m_communicator.GetMenuOptionFromUser();
                 try
                 {
-                    switch (menuOptionChoice)
+                   switch (menuOptionChoice)
                     {
-                        case eMenuOptions.EnterNewVehicle:
+                    case eMenuOptions.EnterNewVehicle:
+                        string typeOfVehicle = m_communicator.GetTypeOfVehicleToEnterTheGarage(m_Garage.GetSupportedVehicleTypesAsList());
+                        bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine(VehicleFactory.GetEnergyTypeAsList(typeOfVehicle));
+                        List<string> parametersToGetFromUser = VehicleFactory.GetCretionParameters(typeOfVehicle, isFuelEngine);
+                        List<string> userInputForParams = m_communicator.GetParametersFromUser(parametersToGetFromUser);
+                        List<string> vehicleInGarageInfo = m_communicator.GetInfoForVehicleInGarage(m_Garage.GetVehicleStatesValuesAsList());
+                        m_Garage.CreateAndEnterVehicleToGarage(userInputForParams, vehicleInGarageInfo);
+                        break;
+               
+                    case eMenuOptions.GetLicensePlates:
                         {
                             string licnesePlate = m_communicator.GetLicensePlateFromUser();
                             if (m_Garage.IsVehicleExists(licnesePlate))

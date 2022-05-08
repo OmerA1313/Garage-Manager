@@ -77,31 +77,35 @@ namespace UI
 
         internal bool GetEnergyTypeOfEngine(List<string> i_TypeOfSupportedEngine)
         {
-            bool isVehicleUsingGas = true; ;
-            bool invalidInput = true;
-            while (invalidInput)
+            bool isVehicleUsingGas = true;
+            if (i_TypeOfSupportedEngine.Count != 1)
             {
-                invalidInput = false;
-                Console.WriteLine("What type of energy your engine use?");
-                PrintEnumeratedList(i_TypeOfSupportedEngine);
-                Console.WriteLine("Please enter the number of chosen type");
-                string userAnswer = Console.ReadLine();         ////                                           ////
-                if (userAnswer == "1")                          //// CANT LIKE IT ! FIND OTHER WAY TO WRITE IT ////
-                {                                               ////                                           ////
-                    isVehicleUsingGas = true;
-                }
-                else if (userAnswer == "2")
+                bool invalidInput = true;
+                while (invalidInput)
                 {
+                    invalidInput = false;
+                    Console.WriteLine("What type of energy your engine use?");
+                    printEnumeratedList(i_TypeOfSupportedEngine);
+                    Console.WriteLine("Please enter the number of chosen type");
+                    string userAnswer = Console.ReadLine();
 
-                    isVehicleUsingGas = false;
-                }
-                else
-                {
-                    Console.WriteLine("The number you enter must be between 1 to {1}", i_TypeOfSupportedEngine.Count);
-                    invalidInput = true;
+                    if (userAnswer == "1")                          
+                    {
+                        isVehicleUsingGas = true;
+                    }
+                    else if (userAnswer == "2")
+                    {
+
+                        isVehicleUsingGas = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("The number you enter must be between 1 to {1}", i_TypeOfSupportedEngine.Count);
+                        invalidInput = true;
+                    }
                 }
             }
-
+          
             return isVehicleUsingGas;
         }
 

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static GarageLogic.Garage_Departments.EnergizingStation;
 
 namespace GarageLogic
 {
     public static class VehicleFactory
     {
+
+        private static Vehicle m_VehicleToCreate;
+
         enum eVehicleType
         {
             Car = 1,
@@ -15,7 +19,18 @@ namespace GarageLogic
             Truck
         }
 
-        private static Vehicle m_VehicleToCreate;
+        public static List<string> GetEnergyTypeAsList(string i_VehicleType)
+        {
+            List<string> AllEnergyTypes = Enum.GetNames(typeof(eEnergyType)).Cast<string>().ToList();
+            eVehicleType vehicleType;
+            Enum.TryParse(i_VehicleType, out vehicleType);
+            if (vehicleType == eVehicleType.Truck)
+            {
+                AllEnergyTypes.Remove("Electricity");
+            }
+
+            return AllEnergyTypes;
+        }
 
         public static List<string> GetAllSupportedVehicleTypes()
         {
