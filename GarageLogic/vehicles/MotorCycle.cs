@@ -14,7 +14,7 @@ namespace GarageLogic
 
         internal enum eLicenseType
         {
-            A, A1, B1, BB 
+            A = 1, A1, B1, BB 
         }
 
         internal MotorCycle(bool i_IsFuelEngine)
@@ -26,12 +26,24 @@ namespace GarageLogic
             {
                 FuelEngine engine = m_Engine as FuelEngine;
                 engine.FuelType = EnergizingStation.eFuelType.Octan98;
-                engine.Capacity = 6.2F;
+                engine.MaxEnergyAmount = 6.2F;
             }
             else
             {
-                m_Engine.Capacity = 2.5F;
+                m_Engine.MaxEnergyAmount = 2.5F;
             }
+        }
+
+        private eLicenseType parseLicenseType(string i_LicenseType)
+        {
+            eLicenseType desiredLicenseType;
+            bool licenseTypeParsed = Enum.TryParse(i_LicenseType, out desiredLicenseType);
+            if(!licenseTypeParsed)
+            {
+                throw new FormatException("Wrong license type input");
+            }
+
+            return desiredLicenseType;
         }
 
         internal override Dictionary<string, string> GetDetails()
@@ -45,7 +57,7 @@ namespace GarageLogic
         public override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Engine capacity");
+            parameters.Add("Engine capacity (cc)");
             parameters.Add("License type");
             //TODO get all license types
             return parameters;
@@ -54,8 +66,8 @@ namespace GarageLogic
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            m_EngineCapacity = int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
-            // TODO get and validate enum
+            m_EngineCapacity = int.Parse(Utils.PopFirstItemOfList(i_Parameters));
+            m_LicenseType = parseLicenseType(Utils.PopFirstItemOfList(i_Parameters));
         }
     }
 }
