@@ -43,7 +43,7 @@ namespace GarageLogic
         public override List<string> GetParameters()
         {
             List<string> parameters = new List<string>();
-            parameters.Add("Current Fuel amount");
+            parameters.Add($"Current Fuel amount, maximum value is {m_MaxEnergyAmount}");
             return parameters;
         }
     }
