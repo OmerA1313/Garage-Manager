@@ -158,9 +158,6 @@ namespace UI
                 "Enter the values as written in the example in (...) \n" +
                 "When given a numbered list to choose from - please enter the corresponding number");
                 WaitForAnyKeyWithMessageAndClearScreen("", "start the registration proccess");
-
-
-
         }
 
         public void WaitForAnyKeyWithMessageAndClearScreen(string i_message, string i_WhatHappendAter)
