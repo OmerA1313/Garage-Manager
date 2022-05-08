@@ -8,6 +8,12 @@ namespace GarageLogic.Garage_Departments
 {
     class EnergizingStation
     {
+
+        public enum eEnergyType
+        {
+            Gas = 1,
+            Electricity
+        }
         public enum eFuelType
         {
             Soler,
