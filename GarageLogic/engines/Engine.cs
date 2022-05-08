@@ -23,12 +23,19 @@ namespace GarageLogic
             m_CurrentEnergyAmount = newEnergyAmount;
         }
 
+        internal float Capacity
+        {
+            get {return m_MaxEnergyAmount;}
+            set {m_MaxEnergyAmount = value;}
+        }
+
         public abstract Dictionary<string, string> GetDetails();
 
         public abstract List<string> GetParameters();
 
         public virtual void SetParameters(List<string> i_Parameters)
         {
+            //TODO extract fuel overload validation to seperate method and use here
             m_CurrentEnergyAmount = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
         }
     }

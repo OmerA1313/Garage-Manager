@@ -25,6 +25,12 @@ namespace GarageLogic
             base.Energize(i_EnergyAmount, i_FuelType);
         }
 
+        internal eFuelType FuelType
+        {
+            get {return m_FuelType;}
+            set {m_FuelType = value;}
+        }
+
         public override Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = new Dictionary<string, string>();

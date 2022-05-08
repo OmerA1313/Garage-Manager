@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
+using GarageLogic.Garage_Departments;
 
 namespace GarageLogic
 {
@@ -16,6 +17,10 @@ namespace GarageLogic
         internal Truck()
         {
             m_Wheels = new List<Wheel>(m_NumberOfWheels);
+            base.SetWheels(24);
+            m_Engine = new FuelEngine();
+            FuelEngine engine = m_Engine as FuelEngine;
+            engine.FuelType = EnergizingStation.eFuelType.Soler;
         }
 
         internal override Dictionary<string, string> GetDetails()

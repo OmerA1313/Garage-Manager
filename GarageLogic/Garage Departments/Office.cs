@@ -12,6 +12,11 @@ namespace GarageLogic.Garage_Departments
 
         private Dictionary<string, VehicleInGarage> m_LicensePlateToVehicle;
 
+        internal Office()
+        {
+            m_LicensePlateToVehicle = new Dictionary<string, VehicleInGarage>();
+        }
+
         internal VehicleInGarage GetVehicleByLicensePlate(string i_LicensePlate)
         {
             VehicleInGarage vehicleToFind;
@@ -44,6 +49,7 @@ namespace GarageLogic.Garage_Departments
 
         internal void EnterNewVehicleToGarage(List<string> i_vehicleInGarageInfo, Vehicle i_newCreatedVehicle)
         {
+            //TODO change everything here - use constructor instead of Properties
             VehicleInGarage vehicleInfo = new VehicleInGarage();
             vehicleInfo.OwnerName = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
             vehicleInfo.OwnerPhoneNumber = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
@@ -52,6 +58,7 @@ namespace GarageLogic.Garage_Departments
             Enum.TryParse<eVehicleStateInGarage>(vehicleStateRepresentation, out parsedVehicleState);
             vehicleInfo.VehicleState = parsedVehicleState;
             vehicleInfo.Vehicle = i_newCreatedVehicle;
+            m_LicensePlateToVehicle.Add(i_newCreatedVehicle.LicensePlate, vehicleInfo);
         }
     }
 }

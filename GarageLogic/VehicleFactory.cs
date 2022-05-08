@@ -31,7 +31,7 @@ namespace GarageLogic
             List<string> paramters = null;
             eVehicleType vehicleType;
             bool parsingSucces = Enum.TryParse<eVehicleType>(i_VehicleType, out vehicleType);
-            if (parsingSucces == true)
+            if (parsingSucces)
             {
                 switch (vehicleType)
                 {
@@ -52,6 +52,11 @@ namespace GarageLogic
                             m_VehicleToCreate = new Truck();
                             break;
                         }
+
+                    default:
+                        {
+                            throw new ArgumentException("Wrong vehicle type");
+                        }
                 }
 
                 paramters = m_VehicleToCreate.GetParameters();
@@ -60,11 +65,10 @@ namespace GarageLogic
             return paramters;
         }
 
-        internal static Vehicle CreateNewVehicleFromParameteres(List<string> i_Parmamters)
+        internal static Vehicle CreateNewVehicleFromParameters(List<string> i_Parmamters)
         {
             m_VehicleToCreate.SetParameters(i_Parmamters);
             return m_VehicleToCreate;
         }
-   
     }
 }

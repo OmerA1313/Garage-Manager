@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GarageLogic.Garage_Departments;
 using static GarageLogic.Garage_Departments.EnergizingStation;
 using static GarageLogic.Garage_Departments.Workshop;
 
@@ -14,11 +15,19 @@ namespace GarageLogic
         private Garage_Departments.Workshop m_Mechanic;
         private Garage_Departments.EnergizingStation m_EnergyFiller;
 
+        public Garage()
+        {
+            m_EnergyFiller = new EnergizingStation();
+            m_Secretary = new Office();
+            m_Mechanic = new Workshop();
+        }
+
         public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage)
         // 2
         {
             eVehicleStateInGarage desiredState;
-            Enum.TryParse<eVehicleStateInGarage>(i_VehicleStateInGarage,out desiredState);
+            Enum.TryParse<eVehicleStateInGarage>(i_VehicleStateInGarage, out desiredState);
+            //TODO check parsing and exception
             return m_Secretary.GetLicensePlatesInGarage(desiredState);
         }
 
@@ -49,6 +58,10 @@ namespace GarageLogic
                 VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
                 m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, energyAmount);
             }
+            else
+            {
+                throw new ArgumentException("Wrong fuel type input, correct fuel type is");
+            }
         }
 
         public Dictionary<string, string> GetVehicleDetails(string i_LicensePlate)
@@ -61,13 +74,13 @@ namespace GarageLogic
 
         public void CreateAndEnterVehicleToGarage(List<string> i_userInputForParams, List<string> i_vehicleInGarageInfo)
         {
-            Vehicle newVehicle =  VehicleFactory.CreateNewVehicleFromParameteres(i_userInputForParams);
+            Vehicle newVehicle = VehicleFactory.CreateNewVehicleFromParameters(i_userInputForParams);
             m_Secretary.EnterNewVehicleToGarage(i_vehicleInGarageInfo, newVehicle);
         }
 
         public List<string> GetVehicleStatusValuesAsList()
         {
-            return Enum.GetValues(typeof(eVehicleStateInGarage)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eVehicleStateInGarage)).ToList();
         }
 
         public List<string> GetFuelTypeValuesAsList()
