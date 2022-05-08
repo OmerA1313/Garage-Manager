@@ -14,7 +14,7 @@ namespace GarageLogic
 
         internal enum eCarColor
         {
-            Red, White, Green, Blue
+            Red = 1, White, Green, Blue
         }
 
         internal Car(bool i_IsFuelEngine)
@@ -47,10 +47,27 @@ namespace GarageLogic
         public override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Color");
-            //TODO get all colors
+            parameters.Add("Color:\n" + createEnumeratedColorOptions(getVehicleColorOptionsAsList())); // maybe extract to the utils class
             parameters.Add("Number of doors");
             return parameters;
+        }
+
+        private string createEnumeratedColorOptions(List<string> i_ListToTakeTheOptionsFrom)
+        {
+            List<string> enumeratedOptions = new List<string>();
+            int indexOfOption = 1;
+            foreach (string option in i_ListToTakeTheOptionsFrom)
+            {
+                enumeratedOptions.Add(string.Format("{0}. {1}", indexOfOption, option));
+                indexOfOption++;
+            }
+
+            return String.Join("\n",enumeratedOptions);
+        }
+
+        public List<string> getVehicleColorOptionsAsList()
+        {
+            return Enum.GetNames(typeof(eCarColor)).ToList();
         }
 
         public override void SetParameters(List<string> i_Parameters)
