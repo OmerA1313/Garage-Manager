@@ -14,6 +14,7 @@ namespace GarageLogic.Garage_Departments
             Gas = 1,
             Electricity
         }
+
         public enum eFuelType
         {
             Soler = 1,
@@ -26,6 +27,18 @@ namespace GarageLogic.Garage_Departments
         // 5+6
         {
             i_VehicleToEnergize.Vehicle.Engine.Energize(i_EnergyAmount, i_FuelType);
+        }
+
+        public eFuelType ParseFuelType(string i_FuelType)
+        {
+            eFuelType desiredFuelType;
+            bool enumConversionSuccses = Enum.TryParse(i_FuelType, out desiredFuelType);
+            if(!enumConversionSuccses)
+            {
+                throw new FormatException("Wrong fuel type input");
+            }
+
+            return desiredFuelType;
         }
     }
 }

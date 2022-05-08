@@ -34,14 +34,14 @@ namespace GarageLogic
 
         public static List<string> GetAllSupportedVehicleTypes()
         {
-            return Enum.GetNames(typeof(eVehicleType)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eVehicleType)).ToList();
         }
 
-        public static List<string> GetCretionParameters(string i_VehicleType, bool i_IsFuelEngine)
+        public static List<string> GetCreationParameters(string i_VehicleType, string i_LicensePlate, bool i_IsFuelEngine)
         {
             List<string> paramters = null;
             eVehicleType vehicleType;
-            bool parsingSucces = Enum.TryParse<eVehicleType>(i_VehicleType, out vehicleType);
+            bool parsingSucces = Enum.TryParse(i_VehicleType, out vehicleType);
             if (parsingSucces)
             {
                 switch (vehicleType)
@@ -70,6 +70,7 @@ namespace GarageLogic
                         }
                 }
 
+                m_VehicleToCreate.LicensePlate = i_LicensePlate;
                 paramters = m_VehicleToCreate.GetParameters();
             }
 

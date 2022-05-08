@@ -28,12 +28,12 @@ namespace UI
 
         public string GetVehicleStateFromUser(List<string> i_AllAvailableCarStates)
         {
-            printEnumeratedList(i_AllAvailableCarStates);
+            PrintEnumeratedList(i_AllAvailableCarStates);
             Console.WriteLine("Please enter vehicle state");
             return Console.ReadLine();
         }
 
-        private void printEnumeratedList(List<string> i_ListedValuesOfEnum)
+        internal void PrintEnumeratedList(List<string> i_ListedValuesOfEnum)
         {
             int index = 1;
             foreach (string value in i_ListedValuesOfEnum)
@@ -45,7 +45,7 @@ namespace UI
 
         internal string GetFuelTypeFromUser(List<string> i_AllAvailableFuelTypes)
         {
-            printEnumeratedList(i_AllAvailableFuelTypes);
+            PrintEnumeratedList(i_AllAvailableFuelTypes);
             Console.WriteLine("Please enter fuel type");
             return Console.ReadLine();
         }
@@ -105,30 +105,31 @@ namespace UI
                     }
                 }
             }
+          
             return isVehicleUsingGas;
         }
 
-        internal string GetTypeOfVehicleToEnterTheGarage(List<string> i_AllSupportedVehicleTypes)
+        internal string GetTypeOfVehicle(List<string> i_AllSupportedVehicleTypes)
         {
-            Console.WriteLine("What the type of the vehicle?");
-            printEnumeratedList(i_AllSupportedVehicleTypes);
-            Console.WriteLine("Please enter the number of chosen type");
+            beforeParametersEnteringProccesMessage();
+            Console.WriteLine("Plese enter type of vehicle:");
+            PrintEnumeratedList(i_AllSupportedVehicleTypes);
             return Console.ReadLine();
         }
 
         private void beforeParametersEnteringProccesMessage()
         {
-            Console.WriteLine("We are about to start the register procces," +
+            Console.WriteLine("We are about to begin the registration process," +
                 "\nPlease make sure to follow the instructions! \n" +
                 "Enter the values as written in the example in (...) \n" +
-                "When having to choose from a list of options - please enter the corresponding number");
-            Console.WriteLine("Enter any key to continue ...");
+                "When given a numbered list to choose from - please enter the corresponding number");
+            Console.WriteLine("Press any key to begin ...");
             Console.ReadLine();
             //Console.Clear();
         }
+
         public List<string> GetParametersFromUser(List<string> i_NameOfNeededParameters)
         {
-            beforeParametersEnteringProccesMessage();
             List<string> userInputs = new List<string>();
             foreach (string parameterName in i_NameOfNeededParameters)
             {
@@ -150,6 +151,11 @@ namespace UI
             vehicleInGarageInfo.Add(Console.ReadLine());
 
             return vehicleInGarageInfo;
+        }
+
+        public void PrintMessage(string i_ExMessage)
+        {
+            Console.WriteLine(i_ExMessage);
         }
     }
 }

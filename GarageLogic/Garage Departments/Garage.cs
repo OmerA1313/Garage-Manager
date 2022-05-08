@@ -22,22 +22,46 @@ namespace GarageLogic
             m_Mechanic = new Workshop();
         }
 
-        public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage)
+        public List<string> GetLicensePlatesInGarage(string i_VehicleStateInGarage, bool i_WithFilteration)
         // 2
         {
+            List<string> licensePlates;
+            if(i_WithFilteration)
+            {
+                eVehicleStateInGarage desiredState = parseVehicleState(i_VehicleStateInGarage);
+                licensePlates = m_Secretary.GetLicensePlatesInGarage(desiredState);
+            }
+            else
+            {
+                licensePlates = m_Secretary.GetAllLicensePlatesInGarage();
+            }
+
+            return licensePlates;
+        }
+
+        private eVehicleStateInGarage parseVehicleState(string i_VehicleState)
+        {
             eVehicleStateInGarage desiredState;
-            Enum.TryParse<eVehicleStateInGarage>(i_VehicleStateInGarage, out desiredState);
-            //TODO check parsing and exception
-            return m_Secretary.GetLicensePlatesInGarage(desiredState);
+            bool stateParse = Enum.TryParse(i_VehicleState, out desiredState);
+            if(!stateParse)
+            {
+                throw new FormatException("Wrong vehicle state");
+            }
+
+            return desiredState;
         }
 
         public void SetVehicleState(string i_LicensePlate, string i_NewState)
         // 3
         {
-            eVehicleStateInGarage newDesiredState;
-            Enum.TryParse<eVehicleStateInGarage>(i_NewState, out newDesiredState);
+            eVehicleStateInGarage newState = parseVehicleState(i_NewState);
+            SetVehicleState(i_LicensePlate,newState);
+        }
+
+        internal void SetVehicleState(string i_LicensePlate, eVehicleStateInGarage i_NewState)
+        {
             VehicleInGarage vehicleToRepair = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
-            m_Mechanic.SetVehicleState(vehicleToRepair, newDesiredState);
+            m_Mechanic.SetVehicleState(vehicleToRepair, i_NewState);
         }
 
         public void InflateVehicleToMax(string i_LicensePlateToInflate)
@@ -51,17 +75,9 @@ namespace GarageLogic
         // 5+6
         {
             float energyAmount = float.Parse(i_EnergyAmount);
-            eFuelType desiredFuelType;
-            bool enumConversionSuccses = Enum.TryParse<eFuelType>(i_FuelType, out desiredFuelType);
-            if (enumConversionSuccses) // TODO: AM NOT SURE HOW TO MODULE THIS
-            {
-                VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
-                m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, energyAmount);
-            }
-            else
-            {
-                throw new ArgumentException("Wrong fuel type input, correct fuel type is");
-            }
+            VehicleInGarage vehicleToEnergize = m_Secretary.GetVehicleByLicensePlate(i_LicensePlate);
+            eFuelType desiredFuelType = m_EnergyFiller.ParseFuelType(i_FuelType);
+            m_EnergyFiller.EnergizeVehicle(vehicleToEnergize, desiredFuelType, energyAmount);
         }
 
         public Dictionary<string, string> GetVehicleDetails(string i_LicensePlate)
@@ -72,9 +88,9 @@ namespace GarageLogic
             return vehicleDetails;
         }
 
-        public void CreateAndEnterVehicleToGarage(List<string> i_userInputForParams, List<string> i_vehicleInGarageInfo)
+        public void CreateAndEnterVehicleToGarage(List<string> i_ParametersForVehicleCreation, List<string> i_vehicleInGarageInfo)
         {
-            Vehicle newVehicle = VehicleFactory.CreateNewVehicleFromParameters(i_userInputForParams);
+            Vehicle newVehicle = VehicleFactory.CreateNewVehicleFromParameters(i_ParametersForVehicleCreation);
             m_Secretary.EnterNewVehicleToGarage(i_vehicleInGarageInfo, newVehicle);
         }
 
@@ -85,12 +101,12 @@ namespace GarageLogic
 
         public List<string> GetFuelTypeAsList()
         {
-            return Enum.GetValues(typeof(eFuelType)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eFuelType)).ToList();
         }
 
-        public List<string> GetEnergyTypeAsList()
+        public List<string> GetEnergyTypesAsList()
         {
-            return Enum.GetNames(typeof(eEnergyType)).Cast<string>().ToList();
+            return Enum.GetNames(typeof(eEnergyType)).ToList();
         }
 
         public List<string> GetSupportedVehicleTypesAsList()
@@ -98,5 +114,14 @@ namespace GarageLogic
             return VehicleFactory.GetAllSupportedVehicleTypes();
         }
 
+        public bool IsVehicleExists(string i_LicensePlate)
+        {
+            return m_Secretary.IsVehicleInGarage(i_LicensePlate);
+        }
+
+        public void ResetStateOfExistingVehicle(string i_LicnesePlate)
+        {
+            SetVehicleState(i_LicnesePlate, eVehicleStateInGarage.InRepair);
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace GarageLogic
 
         internal Car(bool i_IsFuelEngine)
         {
-            m_Wheels = new List<Wheel>(m_NumberOfWheels); // TODO change to readOnly, and send number of wheels as parameter
+            m_Wheels = new List<Wheel>(m_NumberOfWheels);
             base.CreateWheels(m_MaxWheelAirPressure);
             base.CreateEngine(i_IsFuelEngine);
 
@@ -37,6 +37,7 @@ namespace GarageLogic
             {
                 ElectricEngine engine = m_Engine as ElectricEngine;
                 engine.MaxEnergyAmount = m_ElectricEngingCapacity;
+
             }
         }
 
@@ -52,8 +53,15 @@ namespace GarageLogic
         {
             List<string> parameters = base.GetParameters();
             parameters.Add("Color:\n" + Utils.CreateEnumeratedOptions(getVehicleColorOptionsAsList()));
-            parameters.Add("Number of doors");
+            parameters.Add("Number of doors (2,3,4 or 5)");
             return parameters;
+        }
+
+        public override void SetParameters(List<string> i_Parameters)
+        {
+            base.SetParameters(i_Parameters);
+            m_Color = parseCarColor(Utils.PopFirstItemOfList(i_Parameters));
+            m_NumberOfDoors = parseNumberOfDoors(Utils.PopFirstItemOfList(i_Parameters));
         }
 
         private List<string> getVehicleColorOptionsAsList()
@@ -61,26 +69,33 @@ namespace GarageLogic
             return Enum.GetNames(typeof(eCarColor)).ToList();
         }
 
-        public override void SetParameters(List<string> i_Parameters)
+        private eCarColor parseCarColor(string i_CarColor)
         {
-            base.SetParameters(i_Parameters);
-            bool colorParse = Enum.TryParse(Utils.GetAndRemoveFirstItemOfList(i_Parameters), false, out m_Color);
+            eCarColor desiredColor;
+            bool colorParse = Enum.TryParse(i_CarColor, out desiredColor);
             if(!colorParse)
             {
                 throw new FormatException("Wrong color input");
             }
 
-            int numberOfDoors = int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
-            validateNumberOfDoors(numberOfDoors);
-            m_NumberOfDoors = numberOfDoors;
+            return desiredColor;
         }
 
-        private void validateNumberOfDoors(int i_NumberOfDoors)
+        private int parseNumberOfDoors(string i_NumberOfDoors)
         {
-            if(i_NumberOfDoors != 2 && i_NumberOfDoors != 3 && i_NumberOfDoors != 4 && i_NumberOfDoors != 5)
+            int numberOfDoors;
+            bool NumberOfDoorsParse = int.TryParse(i_NumberOfDoors, out numberOfDoors);
+            if(!NumberOfDoorsParse)
+            {
+                throw new FormatException("Number of doors not a valid integer");
+            }
+
+            if(numberOfDoors != 2 && numberOfDoors != 3 && numberOfDoors != 4 && numberOfDoors != 5)
             {
                 throw new ArgumentException("Wrong number of doors input, can only be 2,3,4 or 5");
             }
+
+            return numberOfDoors;
         }
     }
 }

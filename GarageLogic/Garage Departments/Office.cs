@@ -30,35 +30,47 @@ namespace GarageLogic.Garage_Departments
             return vehicleToFind;
         }
 
-        internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage = eVehicleStateInGarage.All) // TTODO: Solve combine
+        internal List<string> GetAllLicensePlatesInGarage()
+        {
+            return m_LicensePlateToVehicle.Keys.ToList();
+        }
+
+        internal List<string> GetLicensePlatesInGarage(eVehicleStateInGarage i_VehicleStateInGarage) // TTODO: Solve combine
         // 2
         {
-            bool retrieveAll = i_VehicleStateInGarage == eVehicleStateInGarage.All;
-            List<string> LicensePlates = new List<string>();
-
-            foreach (VehicleInGarage vehicleInGarage in m_LicensePlateToVehicle.Values)
+            List<string> licensePlates = GetAllLicensePlatesInGarage();
+            foreach(string licensePlate in licensePlates)
             {
-                if (retrieveAll || vehicleInGarage.VehicleState == i_VehicleStateInGarage)
+                VehicleInGarage vehicle;
+                m_LicensePlateToVehicle.TryGetValue(licensePlate, out vehicle);
+                if (vehicle.VehicleState != i_VehicleStateInGarage)
                 {
-                    LicensePlates.Add(vehicleInGarage.Vehicle.LicensePlate);
+                    licensePlates.Remove(licensePlate);
                 }
             }
 
-            return LicensePlates;
+            return licensePlates;
         }
 
-        internal void EnterNewVehicleToGarage(List<string> i_vehicleInGarageInfo, Vehicle i_newCreatedVehicle)
+        internal bool IsVehicleInGarage(string i_LicensePlate)
         {
-            //TODO change everything here - use constructor instead of Properties
-            VehicleInGarage vehicleInfo = new VehicleInGarage();
-            vehicleInfo.OwnerName = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
-            vehicleInfo.OwnerPhoneNumber = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
-            string vehicleStateRepresentation = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
-            eVehicleStateInGarage parsedVehicleState;
-            Enum.TryParse<eVehicleStateInGarage>(vehicleStateRepresentation, out parsedVehicleState);
-            vehicleInfo.VehicleState = parsedVehicleState;
-            vehicleInfo.Vehicle = i_newCreatedVehicle;
-            m_LicensePlateToVehicle.Add(i_newCreatedVehicle.LicensePlate, vehicleInfo);
+            return m_LicensePlateToVehicle.ContainsKey(i_LicensePlate);
         }
+
+        internal void EnterNewVehicleToGarage(List<string> i_VehicleInGarageInfo, Vehicle i_NewCreatedVehicle)
+        {
+            string newVehicleLicensePlate = i_NewCreatedVehicle.LicensePlate;
+            if(IsVehicleInGarage(newVehicleLicensePlate))
+            {
+                throw new ArgumentException($"Vehicle with license plate: {newVehicleLicensePlate} already exists in garage");
+            }
+
+            VehicleInGarage newVehicleInGarage = new VehicleInGarage(i_VehicleInGarageInfo);
+            newVehicleInGarage.VehicleState = eVehicleStateInGarage.InRepair;
+            newVehicleInGarage.Vehicle = i_NewCreatedVehicle;
+            m_LicensePlateToVehicle.Add(i_NewCreatedVehicle.LicensePlate, newVehicleInGarage);
+        }
+
+       
     }
 }
