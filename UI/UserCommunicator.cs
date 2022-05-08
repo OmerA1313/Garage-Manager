@@ -99,13 +99,13 @@ namespace UI
 
         internal string GetFuelAmountFromUser()
         {
-            Console.WriteLine("How many liters would you like to refule? Enter A number.");
+            Console.WriteLine("How many liters would you like to refuel?");
             return Console.ReadLine();
         }
 
         internal string GetTimeToRecharcgAmountFromUser()
         {
-            Console.WriteLine("How many minutes would you like to recharge? Enter A number.");
+            Console.WriteLine("How many hours would you like to recharge? ");
             return Console.ReadLine();
         }
 
@@ -118,12 +118,11 @@ namespace UI
                 while (invalidInput)
                 {
                     invalidInput = false;
-                    Console.WriteLine("What type of energy your engine use?");
+                    Console.WriteLine("What type of energy does your engine use?");
                     PrintEnumeratedList(i_TypeOfSupportedEngine);
-                    Console.WriteLine("Please enter the number of chosen type");
                     string userAnswer = Console.ReadLine();
 
-                    if (userAnswer == "1")                          
+                    if (userAnswer == "1")
                     {
                         isVehicleUsingGas = true;
                     }
@@ -139,7 +138,7 @@ namespace UI
                     }
                 }
             }
-          
+
             return isVehicleUsingGas;
         }
 

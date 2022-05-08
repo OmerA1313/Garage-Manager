@@ -74,7 +74,7 @@ namespace UI
                                 string licnesePlate = m_communicator.GetLicensePlateFromUser();
                                 if (m_Garage.IsVehicleExists(licnesePlate))
                                 {
-                                    m_communicator.PrintMessage($"vehicle {licnesePlate} already exists in garage");
+                                    throw new ArgumentException($"vehicle {licnesePlate} already exists in garage");
                                     m_Garage.ResetStateOfExistingVehicle(licnesePlate);
                                 }
                                 else
@@ -99,12 +99,12 @@ namespace UI
                             }
 
                         case eMenuOptions.GetLicensePlates:
-                        {
-                            string vehicleState;
-                            bool toFilter = m_communicator.GetFilterationChoiceFromUser(m_Garage.GetVehicleStatesValuesAsList(), out vehicleState);
-                            m_communicator.PrintEnumeratedList(m_Garage.GetLicensePlatesInGarage(vehicleState, toFilter));
-                            break;
-                        }
+                            {
+                                string vehicleState;
+                                bool toFilter = m_communicator.GetFilterationChoiceFromUser(m_Garage.GetVehicleStatesValuesAsList(), out vehicleState);
+                                m_communicator.PrintEnumeratedList(m_Garage.GetLicensePlatesInGarage(vehicleState, toFilter));
+                                break;
+                            }
 
                         case eMenuOptions.ChangeVehicleState:
                         {
@@ -115,46 +115,49 @@ namespace UI
                             break;
                         }
 
-                        case eMenuOptions.InflateToMax:
-                        {
-                            string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            m_Garage.InflateVehicleToMax(licensePlate);
-                            break;
-                        }
+                                case eMenuOptions.InflateToMax:
+                                {
+                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
+                                    m_Garage.InflateVehicleToMax(licensePlate);
+                                    break;
+                                }
 
-                        case eMenuOptions.Refuel:
-                        {
-                            string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            string fuelType = m_communicator.GetFuelTypeFromUser(m_Garage.GetFuelTypeAsList());
-                            string fuelAmount = m_communicator.GetFuelAmountFromUser();
-                            m_Garage.EnergizeVehicle(licensePlate, fuelAmount, fuelType);
-                            break;
-                        }
+                                case eMenuOptions.Refuel:
+                                {
+                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
+                                    string fuelType = m_communicator.GetFuelTypeFromUser(m_Garage.GetFuelTypeAsList());
+                                    string fuelAmount = m_communicator.GetFuelAmountFromUser();
+                                    m_Garage.RefuelVehicle(licensePlate, fuelAmount, fuelType);
+                                    break;
+                                }
 
-                        case eMenuOptions.Recharge:
-                        {
-                            string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            string minutesToCharge = m_communicator.GetTimeToRecharcgAmountFromUser();
-                            m_Garage.EnergizeVehicle(licensePlate, minutesToCharge);
-                            break;
-                        }
+                                case eMenuOptions.Recharge:
+                                {
+                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
+                                    string minutesToCharge = m_communicator.GetTimeToRecharcgAmountFromUser();
+                                    m_Garage.RechargeVehicle(licensePlate, minutesToCharge);
+                                    break;
+                                }
 
-                        case eMenuOptions.GetDetails:
-                        {
-                            string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            Dictionary<string, string> vehicleDetails = m_Garage.GetVehicleDetails(licensePlate);
-                            m_communicator.PrintVehicleDetails(vehicleDetails);
-                            break;
-                        }
+                                case eMenuOptions.GetDetails:
+                                {
+                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
+                                    Dictionary<string, string> vehicleDetails = m_Garage.GetVehicleDetails(licensePlate);
+                                    m_communicator.PrintVehicleDetails(vehicleDetails);
+                                    break;
+                                }
 
-                        case eMenuOptions.Exit:
-                        {
-                            m_communicator.PrintGoodbye();
+                                case eMenuOptions.Exit:
+                                {
+                                    m_communicator.PrintGoodbye();
+                                    break;
+                                }
+                        default:
+                            //TODO 
                             break;
-                        }
                     }
 
-                    m_communicator.WaitForAnyKeyWithMessageAndClearScreen("request completed successfully", "get back to main menu");
+                    m_communicator.WaitForAnyKeyWithMessageAndClearScreen("Request completed successfully", "get back to main menu");
                 }
                 catch (Exception ex)
                 {

@@ -18,7 +18,7 @@ namespace GarageLogic
                 string exceptionMessage = string.Format(
                     "Wrong fuel type, expected type is: {0}, but recieved: {1}",
                     m_FuelType,
-                    i_FuelType);
+                    i_FuelType.ToString());
                 throw new ArgumentException(exceptionMessage);
             }
 
