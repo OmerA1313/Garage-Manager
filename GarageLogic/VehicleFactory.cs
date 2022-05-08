@@ -18,9 +18,15 @@ namespace GarageLogic
             Truck
         }
 
+        internal enum eEnergyType
+        {
+            Gas = 1,
+            Electricity
+        }
+
         public static List<string> GetEnergyTypeAsList(string i_VehicleType)
         {
-            List<string> AllEnergyTypes = Enum.GetNames(typeof(eEnergyType)).Cast<string>().ToList();
+            List<string> AllEnergyTypes = Enum.GetNames(typeof(eEnergyType)).ToList();
             eVehicleType vehicleType;
             Enum.TryParse(i_VehicleType, out vehicleType);
             if (vehicleType == eVehicleType.Truck)
@@ -40,9 +46,10 @@ namespace GarageLogic
         {
             List<string> paramters = null;
             eVehicleType vehicleType;
-            bool parsingSucces = Enum.TryParse(i_VehicleType, out vehicleType);
+            bool parsingSucces = Enum.IsDefined(typeof(eVehicleType), int.Parse(i_VehicleType));
             if (parsingSucces)
             {
+                Enum.TryParse(i_VehicleType, out vehicleType);
                 switch (vehicleType)
                 {
                     case eVehicleType.Car:
@@ -56,7 +63,7 @@ namespace GarageLogic
                             m_VehicleToCreate = new MotorCycle(i_IsFuelEngine);
                             break;
                         }
-
+                            
                     case eVehicleType.Truck:
                         {
                             m_VehicleToCreate = new Truck();
@@ -71,6 +78,10 @@ namespace GarageLogic
 
                 m_VehicleToCreate.LicensePlate = i_LicensePlate;
                 paramters = m_VehicleToCreate.GetParameters();
+            }
+            else
+            {
+                throw new FormatException("Wrong vehicle type input");
             }
 
             return paramters;

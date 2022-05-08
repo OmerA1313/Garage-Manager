@@ -41,12 +41,13 @@ namespace GarageLogic
         private eLicenseType parseLicenseType(string i_LicenseType)
         {
             eLicenseType desiredLicenseType;
-            bool licenseTypeParsed = Enum.TryParse(i_LicenseType, out desiredLicenseType);
+            bool licenseTypeParsed = Enum.IsDefined(typeof(eLicenseType), int.Parse(i_LicenseType));
             if(!licenseTypeParsed)
             {
                 throw new FormatException("Wrong license type input");
             }
 
+            Enum.TryParse(i_LicenseType, out desiredLicenseType);
             return desiredLicenseType;
         }
 

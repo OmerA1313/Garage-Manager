@@ -29,7 +29,7 @@ namespace GarageLogic
         internal override Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = base.GetDetails();
-            details.Add("is refrigerated", isRefrigeratedToString(m_IsRefrigerated));
+            details.Add("Transporting refrigerated contents", isRefrigeratedToString(m_IsRefrigerated));
             details.Add("loading capacity", m_LoadingCapacity.ToString());
             return details;
         }
@@ -42,7 +42,7 @@ namespace GarageLogic
         internal override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Is refrigerated:\n" + getYesNoOptions());
+            parameters.Add("Whether the truck transports refrigerated contents:\n" + getYesNoOptions());
             parameters.Add("Loading capacity (Kg)");
             return parameters;
         }

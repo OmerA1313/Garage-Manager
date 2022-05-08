@@ -41,12 +41,13 @@ namespace GarageLogic
         private eVehicleStateInGarage parseVehicleState(string i_VehicleState)
         {
             eVehicleStateInGarage desiredState;
-            bool stateParse = Enum.TryParse(i_VehicleState, out desiredState);
-            if(!stateParse)
+            bool stateParse = Enum.IsDefined(typeof(eVehicleStateInGarage), int.Parse(i_VehicleState));
+            if (!stateParse)
             {
                 throw new FormatException("Wrong vehicle state");
             }
 
+            Enum.TryParse(i_VehicleState, out desiredState);
             return desiredState;
         }
 

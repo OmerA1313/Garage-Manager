@@ -24,7 +24,7 @@ namespace GarageLogic.Garage_Departments
             if (!vehicleExists)
             {
                 throw new ArgumentException(
-                    $"@The License plate you entered: {i_LicensePlate} doesn't match any vehicle in the garage");
+                    $"The License plate you entered: {i_LicensePlate} doesn't match any vehicle in the garage");
             }
 
             return vehicleToFind;

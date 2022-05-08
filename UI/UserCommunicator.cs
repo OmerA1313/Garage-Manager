@@ -10,7 +10,7 @@ namespace UI
         internal eMenuOptions GetMenuOptionFromUser()
         {
             string userChoice = Console.ReadLine();
-            Console.Clear();
+            ClearScreen();
             eMenuOptions userParsedChoice;
             Enum.TryParse(userChoice, out userParsedChoice);
             return userParsedChoice;
@@ -63,10 +63,15 @@ namespace UI
             return Console.ReadLine();
         }
 
-        internal void PrintEnumeratedList(List<string> i_ListToPrint)
+        internal void PrintEnumeratedList(List<string> i_ListToPrint,string i_PromptMessage = "", string i_InCaseOfEmpty = "")
         {
-            if (i_ListToPrint.Count != 0)
+            if (i_ListToPrint.Count == 0)
             {
+                Console.WriteLine(i_InCaseOfEmpty);
+            }
+            else
+            {
+                Console.WriteLine(i_PromptMessage);
                 int index = 1;
                 foreach (string value in i_ListToPrint)
                 {
@@ -105,7 +110,7 @@ namespace UI
 
         internal string GetTimeToRecharcgAmountFromUser()
         {
-            Console.WriteLine("How many hours would you like to recharge? ");
+            Console.WriteLine("How many hours would you like to recharge?");
             return Console.ReadLine();
         }
 
@@ -159,11 +164,16 @@ namespace UI
             WaitForAnyKeyWithMessageAndClearScreen("", "start the registration process");
         }
 
-        internal void WaitForAnyKeyWithMessageAndClearScreen(string i_Message, string i_WhatHappendAter)
+        internal void WaitForAnyKeyWithMessageAndClearScreen(string i_Message, string i_WhatHappensAfter)
         {
             Console.WriteLine(i_Message);
-            Console.WriteLine("Enter any key to " + i_WhatHappendAter + "...");
-            Console.ReadLine();
+            Console.WriteLine("Press any key to " + i_WhatHappensAfter + "...");
+            Console.ReadKey();
+            ClearScreen();
+        }
+
+        internal void ClearScreen()
+        {
             Console.Clear();
         }
 

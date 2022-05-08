@@ -70,13 +70,14 @@ namespace GarageLogic
 
         private eCarColor parseCarColor(string i_CarColor)
         {
-            eCarColor desiredColor;
-            bool colorParse = Enum.TryParse(i_CarColor, out desiredColor);
+            bool colorParse = Enum.IsDefined(typeof(eCarColor), int.Parse(i_CarColor));
             if(!colorParse)
             {
                 throw new FormatException("Wrong color input");
             }
 
+            eCarColor desiredColor;
+            Enum.TryParse(i_CarColor, out desiredColor);
             return desiredColor;
         }
 

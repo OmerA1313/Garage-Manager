@@ -7,13 +7,13 @@ namespace UI
 {
     internal class GarageMenu
     {
-        private UserCommunicator m_communicator;
+        private UserCommunicator m_Communicator;
         private Garage m_Garage;
         private string m_MenuString;
 
         internal GarageMenu()
         {
-            m_communicator = new UserCommunicator();
+            m_Communicator = new UserCommunicator();
             m_Garage = new Garage();
             generateMenuOptions();
         }
@@ -55,7 +55,7 @@ namespace UI
         private void printMenu()
         {
             Console.Clear();
-            m_communicator.PrintMenu(m_MenuString);
+            m_Communicator.PrintMenu(m_MenuString);
         }
 
         internal void Excecute()
@@ -64,33 +64,33 @@ namespace UI
             do
             { 
                 printMenu();
-                menuOptionChoice = m_communicator.GetMenuOptionFromUser();
+                menuOptionChoice = m_Communicator.GetMenuOptionFromUser();
                 try
                 {
                    switch (menuOptionChoice)
                     {
                         case eMenuOptions.EnterNewVehicle:
                             {
-                                string licnesePlate = m_communicator.GetLicensePlateFromUser();
+                                string licnesePlate = m_Communicator.GetLicensePlateFromUser();
                                 if (m_Garage.IsVehicleExists(licnesePlate))
                                 {
-                                    throw new ArgumentException($"vehicle {licnesePlate} already exists in garage");
                                     m_Garage.ResetStateOfExistingVehicle(licnesePlate);
+                                    m_Communicator.PrintMessage($"vehicle {licnesePlate} already exists in garage");
                                 }
                                 else
                                 {
                                     string typeOfVehicle =
-                                        m_communicator.GetTypeOfVehicle(m_Garage.GetSupportedVehicleTypesAsList());
-                                    bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine(
+                                        m_Communicator.GetTypeOfVehicle(m_Garage.GetSupportedVehicleTypesAsList());
+                                    bool isFuelEngine = m_Communicator.GetEnergyTypeOfEngine(
                                         VehicleFactory.GetEnergyTypeAsList(typeOfVehicle));
                                     List<string> parametersToGetFromUser = VehicleFactory.GetCreationParameters(
                                         typeOfVehicle,
                                         licnesePlate,
                                         isFuelEngine);
                                     List<string> userInputForParams =
-                                        m_communicator.GetParametersFromUser(parametersToGetFromUser);
+                                        m_Communicator.GetParametersFromUser(parametersToGetFromUser);
                                     List<string> vehicleInGarageInfo =
-                                        m_communicator.GetInfoForVehicleInGarage(
+                                        m_Communicator.GetInfoForVehicleInGarage(
                                             m_Garage.GetVehicleStatesValuesAsList());
                                     m_Garage.CreateAndEnterVehicleToGarage(userInputForParams, vehicleInGarageInfo);
                                 }
@@ -101,67 +101,71 @@ namespace UI
                         case eMenuOptions.GetLicensePlates:
                             {
                                 string vehicleState;
-                                bool toFilter = m_communicator.GetFilterationChoiceFromUser(m_Garage.GetVehicleStatesValuesAsList(), out vehicleState);
-                                m_communicator.PrintEnumeratedList(m_Garage.GetLicensePlatesInGarage(vehicleState, toFilter));
+                                bool toFilter = m_Communicator.GetFilterationChoiceFromUser(m_Garage.GetVehicleStatesValuesAsList(), out vehicleState);
+                                m_Communicator.ClearScreen();
+                                m_Communicator.PrintEnumeratedList(m_Garage.GetLicensePlatesInGarage(vehicleState, toFilter), "Vehicles that match your query:", "There are no vehicles to display");
                                 break;
                             }
 
                         case eMenuOptions.ChangeVehicleState:
-                        {
-                            string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            string vehicleState =
-                                m_communicator.GetVehicleState(m_Garage.GetVehicleStatesValuesAsList());
-                            m_Garage.SetVehicleState(licensePlate, vehicleState);
-                            break;
-                        }
+                            {
+                                string licensePlate = m_Communicator.GetLicensePlateFromUser();
+                                string vehicleState =
+                                    m_Communicator.GetVehicleState(m_Garage.GetVehicleStatesValuesAsList());
+                                m_Garage.SetVehicleState(licensePlate, vehicleState);
+                                break;
+                            }
 
-                                case eMenuOptions.InflateToMax:
-                                {
-                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
-                                    m_Garage.InflateVehicleToMax(licensePlate);
-                                    break;
-                                }
+                        case eMenuOptions.InflateToMax:
+                            {
+                                string licensePlate = m_Communicator.GetLicensePlateFromUser();
+                                m_Garage.InflateVehicleToMax(licensePlate);
+                                break;
+                            }
 
-                                case eMenuOptions.Refuel:
-                                {
-                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
-                                    string fuelType = m_communicator.GetFuelTypeFromUser(m_Garage.GetFuelTypeAsList());
-                                    string fuelAmount = m_communicator.GetFuelAmountFromUser();
-                                    m_Garage.RefuelVehicle(licensePlate, fuelAmount, fuelType);
-                                    break;
-                                }
+                        case eMenuOptions.Refuel:
+                            {
+                                string licensePlate = m_Communicator.GetLicensePlateFromUser();
+                                string fuelType = m_Communicator.GetFuelTypeFromUser(m_Garage.GetFuelTypeAsList());
+                                string fuelAmount = m_Communicator.GetFuelAmountFromUser();
+                                m_Garage.RefuelVehicle(licensePlate, fuelAmount, fuelType);
+                                break;
+                            }
 
-                                case eMenuOptions.Recharge:
-                                {
-                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
-                                    string minutesToCharge = m_communicator.GetTimeToRecharcgAmountFromUser();
-                                    m_Garage.RechargeVehicle(licensePlate, minutesToCharge);
-                                    break;
-                                }
+                        case eMenuOptions.Recharge:
+                            {
+                                string licensePlate = m_Communicator.GetLicensePlateFromUser();
+                                string minutesToCharge = m_Communicator.GetTimeToRecharcgAmountFromUser();
+                                m_Garage.RechargeVehicle(licensePlate, minutesToCharge);
+                                break;
+                            }
 
-                                case eMenuOptions.GetDetails:
-                                {
-                                    string licensePlate = m_communicator.GetLicensePlateFromUser();
-                                    Dictionary<string, string> vehicleDetails = m_Garage.GetVehicleDetails(licensePlate);
-                                    m_communicator.PrintVehicleDetails(vehicleDetails);
-                                    break;
-                                }
+                        case eMenuOptions.GetDetails:
+                            {
+                                string licensePlate = m_Communicator.GetLicensePlateFromUser();
+                                Dictionary<string, string> vehicleDetails = m_Garage.GetVehicleDetails(licensePlate);
+                                m_Communicator.PrintVehicleDetails(vehicleDetails);
+                                break;
+                            }
 
-                                case eMenuOptions.Exit:
-                                {
-                                    m_communicator.PrintGoodbye();
-                                    break;
-                                }
+                        case eMenuOptions.Exit:
+                            {
+                                m_Communicator.PrintGoodbye();
+                                continue;
+                            }
+
                         default:
-                            //TODO 
-                            break;
+                            {
+                                m_Communicator.WaitForAnyKeyWithMessageAndClearScreen("Wrong input! please enter one of the numbers representing a menu option", "get back to main menu");
+                                continue;
+                            }
                     }
 
-                    m_communicator.WaitForAnyKeyWithMessageAndClearScreen("Request completed successfully", "get back to main menu");
+                   m_Communicator.WaitForAnyKeyWithMessageAndClearScreen("Request completed successfully", "get back to main menu");
                 }
                 catch (Exception ex)
                 {
-                    m_communicator.WaitForAnyKeyWithMessageAndClearScreen("An error occurred: " + ex.Message, "get back to main menu");
+                    m_Communicator.WaitForAnyKeyWithMessageAndClearScreen("An error occurred: " + ex.Message, "get back to main menu");
                 }
 
             } while (menuOptionChoice != eMenuOptions.Exit);
