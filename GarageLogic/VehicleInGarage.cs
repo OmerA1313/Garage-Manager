@@ -25,7 +25,11 @@ namespace GarageLogic
             set { m_Vehicle = value; }
         }
 
-        public Garage_Departments.Workshop.eVehicleStateInGarage VehicleState { get; set; }
+        internal Garage_Departments.Workshop.eVehicleStateInGarage VehicleState
+        {
+            get {return m_VehicleState; } 
+            set { m_VehicleState = value; }
+        }
 
         public string OwnerName { get; set; }
 

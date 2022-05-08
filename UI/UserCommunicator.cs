@@ -28,12 +28,12 @@ namespace UI
 
         public string GetVehicleStateFromUser(List<string> i_AllAvailableCarStates)
         {
-            printEnumeratedList(i_AllAvailableCarStates);
+            PrintEnumeratedList(i_AllAvailableCarStates);
             Console.WriteLine("Please enter vehicle state");
             return Console.ReadLine();
         }
 
-        private void printEnumeratedList(List<string> i_ListedValuesOfEnum)
+        internal void PrintEnumeratedList(List<string> i_ListedValuesOfEnum)
         {
             int index = 1;
             foreach (string value in i_ListedValuesOfEnum)
@@ -45,7 +45,7 @@ namespace UI
 
         internal string GetFuelTypeFromUser(List<string> i_AllAvailableFuelTypes)
         {
-            printEnumeratedList(i_AllAvailableFuelTypes);
+            PrintEnumeratedList(i_AllAvailableFuelTypes);
             Console.WriteLine("Please enter fuel type");
             return Console.ReadLine();
         }
@@ -83,7 +83,7 @@ namespace UI
             {
                 invalidInput = false;
                 Console.WriteLine("What type of energy your engine use?");
-                printEnumeratedList(i_TypeOfSupportedEngine);
+                PrintEnumeratedList(i_TypeOfSupportedEngine);
                 Console.WriteLine("Please enter the number of chosen type");
                 string userAnswer = Console.ReadLine();         ////                                           ////
                 if (userAnswer == "1")                          //// CANT LIKE IT ! FIND OTHER WAY TO WRITE IT ////
@@ -105,10 +105,10 @@ namespace UI
             return isVehicleUsingGas;
         }
 
-        internal string GetTypeOfVehicleToEnterTheGarage(List<string> i_AllSupportedVehicleTypes)
+        internal string GetTypeOfVehicle(List<string> i_AllSupportedVehicleTypes)
         {
             Console.WriteLine("What the type of the vehicle?");
-            printEnumeratedList(i_AllSupportedVehicleTypes);
+            PrintEnumeratedList(i_AllSupportedVehicleTypes);
             Console.WriteLine("Please enter the number of chosen type");
             return Console.ReadLine();
         }
@@ -147,6 +147,11 @@ namespace UI
             vehicleInGarageInfo.Add(Console.ReadLine());
 
             return vehicleInGarageInfo;
+        }
+
+        public void PrintMessage(string i_ExMessage)
+        {
+            Console.WriteLine(i_ExMessage);
         }
     }
 }

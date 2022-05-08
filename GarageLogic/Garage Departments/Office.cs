@@ -47,12 +47,23 @@ namespace GarageLogic.Garage_Departments
             return LicensePlates;
         }
 
-        internal void EnterNewVehicleToGarage(List<string> i_vehicleInGarageInfo, Vehicle i_newCreatedVehicle)
+        internal bool IsVehicleInGarage(string i_LicensePlate)
         {
-            VehicleInGarage newVehicleInGarage = new VehicleInGarage(i_vehicleInGarageInfo);
+            return m_LicensePlateToVehicle.ContainsKey(i_LicensePlate);
+        }
+
+        internal void EnterNewVehicleToGarage(List<string> i_VehicleInGarageInfo, Vehicle i_NewCreatedVehicle)
+        {
+            string newVehicleLicensePlate = i_NewCreatedVehicle.LicensePlate;
+            if(IsVehicleInGarage(newVehicleLicensePlate))
+            {
+                throw new ArgumentException($"Vehicle with license plate: {newVehicleLicensePlate} already exists in garage");
+            }
+
+            VehicleInGarage newVehicleInGarage = new VehicleInGarage(i_VehicleInGarageInfo);
             newVehicleInGarage.VehicleState = eVehicleStateInGarage.InRepair;
-            newVehicleInGarage.Vehicle = i_newCreatedVehicle;
-            m_LicensePlateToVehicle.Add(i_newCreatedVehicle.LicensePlate, newVehicleInGarage);
+            newVehicleInGarage.Vehicle = i_NewCreatedVehicle;
+            m_LicensePlateToVehicle.Add(i_NewCreatedVehicle.LicensePlate, newVehicleInGarage);
         }
     }
 }
