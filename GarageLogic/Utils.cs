@@ -8,6 +8,18 @@ namespace GarageLogic
 {
     internal static class Utils
     {
+        public static string CreateEnumeratedOptions(List<string> i_ListToTakeTheOptionsFrom)
+        {
+            List<string> enumeratedOptions = new List<string>();
+            int indexOfOption = 1;
+            foreach (string option in i_ListToTakeTheOptionsFrom)
+            {
+                enumeratedOptions.Add(string.Format("{0}. {1}", indexOfOption, option));
+                indexOfOption++;
+            }
+
+            return String.Join("\n", enumeratedOptions);
+        }
         public static Dictionary<string, string> ConcatDictionary(Dictionary<string, string> i_DestDict, Dictionary<string, string> i_SrcDict)
         {
             foreach(var item in i_SrcDict)
