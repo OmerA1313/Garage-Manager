@@ -27,7 +27,7 @@ namespace GarageLogic
         internal override Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = base.GetDetails();
-            details.Add("is refrigerated",m_IsRefrigerated.ToString());
+            details.Add("is refrigerated", isRefrigeratedToString(m_IsRefrigerated));
             details.Add("loading capacity", m_LoadingCapacity.ToString());
             return details;
         }
@@ -39,6 +39,7 @@ namespace GarageLogic
             parameters.Add("Loading capacity");
             return parameters;
         }
+        
         private string getYesNoOptions()
         {
             return "1. Yes\n" +
@@ -48,7 +49,7 @@ namespace GarageLogic
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            m_IsRefrigerated = convertYesNoOptionsToBoolean(Utils.GetAndRemoveFirstItemOfList(i_Parameters)); // TODO parse from string to boolean
+            m_IsRefrigerated = convertYesNoOptionsToBoolean(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
             m_LoadingCapacity = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
         }
 

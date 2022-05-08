@@ -37,6 +37,18 @@ namespace GarageLogic
             }
         }
 
+        private eLicenseType parseLicenseType(string i_LicenseType)
+        {
+            eLicenseType desiredLicenseType;
+            bool licenseTypeParsed = Enum.TryParse(i_LicenseType, out desiredLicenseType);
+            if(!licenseTypeParsed)
+            {
+                throw new FormatException("Wrong license type input");
+            }
+
+            return desiredLicenseType;
+        }
+
         internal override Dictionary<string, string> GetDetails()
         {
             Dictionary<string, string> details = base.GetDetails();
@@ -61,8 +73,8 @@ namespace GarageLogic
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            m_EngineCapacity = int.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
-            // TODO get and validate enum
+            m_EngineCapacity = int.Parse(Utils.PopFirstItemOfList(i_Parameters));
+            m_LicenseType = parseLicenseType(Utils.PopFirstItemOfList(i_Parameters));
         }
     }
 }

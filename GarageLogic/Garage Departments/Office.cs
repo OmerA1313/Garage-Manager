@@ -49,16 +49,10 @@ namespace GarageLogic.Garage_Departments
 
         internal void EnterNewVehicleToGarage(List<string> i_vehicleInGarageInfo, Vehicle i_newCreatedVehicle)
         {
-            //TODO change everything here - use constructor instead of Properties
-            VehicleInGarage vehicleInfo = new VehicleInGarage();
-            vehicleInfo.OwnerName = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
-            vehicleInfo.OwnerPhoneNumber = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
-            string vehicleStateRepresentation = Utils.GetAndRemoveFirstItemOfList(i_vehicleInGarageInfo);
-            eVehicleStateInGarage parsedVehicleState;
-            Enum.TryParse<eVehicleStateInGarage>(vehicleStateRepresentation, out parsedVehicleState);
-            vehicleInfo.VehicleState = parsedVehicleState;
-            vehicleInfo.Vehicle = i_newCreatedVehicle;
-            m_LicensePlateToVehicle.Add(i_newCreatedVehicle.LicensePlate, vehicleInfo);
+            VehicleInGarage newVehicleInGarage = new VehicleInGarage(i_vehicleInGarageInfo);
+            newVehicleInGarage.VehicleState = eVehicleStateInGarage.InRepair;
+            newVehicleInGarage.Vehicle = i_newCreatedVehicle;
+            m_LicensePlateToVehicle.Add(i_newCreatedVehicle.LicensePlate, newVehicleInGarage);
         }
     }
 }
