@@ -54,6 +54,7 @@ namespace UI
 
         private void printMenu()
         {
+            Console.Clear();
             m_communicator.PrintMenu(m_MenuString);
         }
 
@@ -156,13 +157,11 @@ namespace UI
                             break;
                     }
 
-                    m_communicator.PrintMessage("Request completed successfully!");
-                    System.Threading.Thread.Sleep(2000);
+                    m_communicator.WaitForAnyKeyWithMessageAndClearScreen("Request completed successfully", "get back to main menu");
                 }
                 catch (Exception ex)
                 {
-                    m_communicator.PrintMessage("ERROR: " + ex.Message);
-                    // TODO press any key to continue with message
+                    m_communicator.WaitForAnyKeyWithMessageAndClearScreen("An error occurred: " + ex.Message, "get back to main menu");
                 }
 
             } while (menuOptionChoice != eMenuOptions.Exit);

@@ -10,6 +10,7 @@ namespace UI
         public eMenuOptions GetMenuOptionFromUser()
         {
             string userChoice = Console.ReadLine();
+            Console.Clear();
             eMenuOptions userParsedChoice;
             Enum.TryParse(userChoice, out userParsedChoice);
             return userParsedChoice;
@@ -151,13 +152,22 @@ namespace UI
 
         private void beforeParametersEnteringProccesMessage()
         {
-            Console.WriteLine("We are about to begin the registration process," +
+            Console.WriteLine("\nWe are about to begin the registration process" +
                 "\nPlease make sure to follow the instructions! \n" +
                 "Enter the values as written in the example in (...) \n" +
                 "When given a numbered list to choose from - please enter the corresponding number");
-            Console.WriteLine("Press any key to begin ...");
+                WaitForAnyKeyWithMessageAndClearScreen("", "start the registration proccess");
+
+
+
+        }
+
+        public void WaitForAnyKeyWithMessageAndClearScreen(string i_message, string i_WhatHappendAter)
+        {
+            Console.WriteLine(i_message);
+            Console.WriteLine("Enter any key to " + i_WhatHappendAter + "...");
             Console.ReadLine();
-            //Console.Clear();
+            Console.Clear();
         }
 
         public List<string> GetParametersFromUser(List<string> i_NameOfNeededParameters)
