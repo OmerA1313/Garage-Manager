@@ -11,7 +11,10 @@ namespace GarageLogic
     {
         private eLicenseType m_LicenseType;
         private int m_EngineCapacity;
-
+        private readonly int m_MaxWheelAirPressure = 31;
+        private readonly int m_NumberOfWheels = 2;
+        private readonly float m_FuledEngingCapacity = 6.2F;
+        private readonly float m_ElectricEngingCapacity = 2.5F;
         internal enum eLicenseType
         {
             A = 1, A1, B1, BB 
@@ -19,18 +22,18 @@ namespace GarageLogic
 
         internal MotorCycle(bool i_IsFuelEngine)
         {
-            m_Wheels = new List<Wheel>(2);
+            m_Wheels = new List<Wheel>(m_NumberOfWheels);
             base.CreateEngine(i_IsFuelEngine);
-            base.SetWheels(31);
+            base.CreateWheels(m_MaxWheelAirPressure);
             if(i_IsFuelEngine)
             {
                 FuelEngine engine = m_Engine as FuelEngine;
                 engine.FuelType = EnergizingStation.eFuelType.Octan98;
-                engine.MaxEnergyAmount = 6.2F;
+                engine.MaxEnergyAmount = m_FuledEngingCapacity;
             }
             else
             {
-                m_Engine.MaxEnergyAmount = 2.5F;
+                m_Engine.MaxEnergyAmount = m_ElectricEngingCapacity;
             }
         }
 
@@ -57,10 +60,14 @@ namespace GarageLogic
         public override List<string> GetParameters()
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Engine capacity (cc)");
-            parameters.Add("License type");
-            //TODO get all license types
+            parameters.Add("Engine capacity");
+            parameters.Add("License type:\n" + Utils.CreateEnumeratedOptions(getMotorcycleLicenseTypeAsList()));
             return parameters;
+        }
+
+        private List<string> getMotorcycleLicenseTypeAsList()
+        {
+            return Enum.GetNames(typeof(eLicenseType)).ToList();
         }
 
         public override void SetParameters(List<string> i_Parameters)

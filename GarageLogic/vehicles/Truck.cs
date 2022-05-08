@@ -10,14 +10,15 @@ namespace GarageLogic
 {
     internal class Truck : Vehicle
     {
-        private readonly int m_NumberOfWheels = 16;
         private bool m_IsRefrigerated;
         private float m_LoadingCapacity;
+        private readonly int m_NumberOfWheels = 16;
+        private readonly int m_MaxWheelAirPressure = 24;
 
         internal Truck()
         {
             m_Wheels = new List<Wheel>(m_NumberOfWheels);
-            base.SetWheels(24);
+            base.CreateWheels(m_MaxWheelAirPressure);
             m_Engine = new FuelEngine();
             FuelEngine engine = m_Engine as FuelEngine;
             engine.FuelType = EnergizingStation.eFuelType.Soler;
@@ -34,34 +35,47 @@ namespace GarageLogic
         public override List<string> GetParameters() 
         {
             List<string> parameters = base.GetParameters();
-            parameters.Add("Is refrigerated"); //TODO: yes/no
-            parameters.Add("Loading capacity (Kg)");
+            parameters.Add("Is refrigerated:\n" + getYesNoOptions());
+            parameters.Add("Loading capacity");
             return parameters;
+        }
+        
+        private string getYesNoOptions()
+        {
+            return "1. Yes\n" +
+                    "2. No";
         }
 
         public override void SetParameters(List<string> i_Parameters)
         {
             base.SetParameters(i_Parameters);
-            m_IsRefrigerated = parseIsRefrigerated(Utils.PopFirstItemOfList(i_Parameters));
-            m_LoadingCapacity = float.Parse(Utils.PopFirstItemOfList(i_Parameters));
+            m_IsRefrigerated = convertYesNoOptionsToBoolean(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
+            m_LoadingCapacity = float.Parse(Utils.GetAndRemoveFirstItemOfList(i_Parameters));
         }
 
-        private bool parseIsRefrigerated(string i_IsRefrigeratedStr)
+        /// <summary>
+        /// throws ArgumentException with moduled message about expected input
+        /// </summary>
+        /// <param name="UserInput"></param>
+        /// <returns> UserInput is 1 -> True <br/> 
+        ///           UserInput is 2 -> False  
+        /// </returns>
+        private bool convertYesNoOptionsToBoolean(string i_UserInput)
         {
-            int booleanAsInt;
-            bool booleanParsed = int.TryParse(i_IsRefrigeratedStr, out booleanAsInt);
-            bool integerConvertable = booleanAsInt == 0 || booleanAsInt == 1;
-            if(!booleanParsed || !integerConvertable)
+            bool returnVal;
+            if (i_UserInput == "1")
             {
-                throw new FormatException("Wrong input for is truck refrigerated");
+                returnVal = true;
             }
-
-            return Convert.ToBoolean(booleanAsInt);
-        }
-
-        private string isRefrigeratedToString(bool i_IsRefrigerated)
-        {
-            return i_IsRefrigerated ? "Yes" : "No";
+            else if (i_UserInput == "2")
+            {
+                returnVal = false;
+            }
+            else
+            {
+                throw new ArgumentException("The answer for 'is the truk carries refrigerated?' should be answered by 1 or 2 only.");
+            }
+            return returnVal;
         }
     }
 }
