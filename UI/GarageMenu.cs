@@ -36,7 +36,7 @@ namespace UI
             string promptMessage = "Please choose an option";
             string firsttMenuOption = "1. Enter new vehicle to Garage";
             string secondMenuOption = "2. Get license plates of vehicles in garage";
-            string thirdMenuOption = " 3. Change vehicle state";
+            string thirdMenuOption = "3. Change vehicle state";
             string fourthMenuOption = "4. Inflate vehicle wheels to max";
             string fifthMenuOption = "5. Refuel a fuel-motored vehicle";
             string sixthMenuOption = "6. Recharge an electric-motored vehicle";
@@ -67,17 +67,17 @@ namespace UI
                 switch (menuOptionChoice)
                 {
                     case eMenuOptions.EnterNewVehicle:
-                        string typeOfVehicle = m_communicator.GetTypeOfVehicleToEnterTheGarage();
-                        bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine();
+                        string typeOfVehicle = m_communicator.GetTypeOfVehicleToEnterTheGarage(m_Garage.GetSupportedVehicleTypesAsList());
+                        bool isFuelEngine = m_communicator.GetEnergyTypeOfEngine(m_Garage.GetEnergyTypeAsList());
                         List<string> parametersToGetFromUser = VehicleFactory.GetCretionParameters(typeOfVehicle, isFuelEngine);
                         List<string> userInputForParams = m_communicator.GetParametersFromUser(parametersToGetFromUser);
-                        List<string> vehicleInGarageInfo = m_communicator.GetInfoForVehicleInGarage();
+                        List<string> vehicleInGarageInfo = m_communicator.GetInfoForVehicleInGarage(m_Garage.GetVehicleStatesValuesAsList());
                         m_Garage.CreateAndEnterVehicleToGarage(userInputForParams, vehicleInGarageInfo);
                         break;
 
                     case eMenuOptions.GetLicensePlates:
                         {
-                            string filterLicensePlates = m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatusValuesAsList());
+                            string filterLicensePlates = m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatesValuesAsList());
                             m_Garage.GetLicensePlatesInGarage(filterLicensePlates);
                             break;
                         }
@@ -85,7 +85,7 @@ namespace UI
                     case eMenuOptions.ChangeVehicleState:
                         {
                             string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            string vehicleState = m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatusValuesAsList());
+                            string vehicleState = m_communicator.GetVehicleStateFromUser(m_Garage.GetVehicleStatesValuesAsList());
                             m_Garage.SetVehicleState(licensePlate, vehicleState);
                             break;
                         }
@@ -100,7 +100,7 @@ namespace UI
                     case eMenuOptions.Refuel:
                         {
                             string licensePlate = m_communicator.GetLicensePlateFromUser();
-                            string fuelType = m_communicator.GetFuelTypeFromUser(m_Garage.GetFuelTypeValuesAsList());
+                            string fuelType = m_communicator.GetFuelTypeFromUser(m_Garage.GetFuelTypeAsList());
                             string fuelAmount = m_communicator.GetFuelAmountFromUser();
                             m_Garage.EnergizeVehicle(licensePlate, fuelAmount, fuelType);
                             break;
